@@ -1,0 +1,69 @@
+@import '~normalize.css/normalize.css';
+@import 'partials/variables';
+@import 'partials/tools';
+@import 'partials/layout';
+@import 'partials/typography';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
+
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.cf {
+  *zoom: 1;
+  &::before,
+  &::after {
+    display: table;
+    content: '';
+    line-height: 0;
+  }
+  &::after {
+    clear: both;
+  }
+}
+
+@import 'Components/Button';
+@import 'Components/Checkbox';
+@import 'Components/Label';
+@import 'Components/Select';
+@import 'Components/Header';
+@import 'Components/Form';
+@import 'Components/FileWrapper';
+@import 'Components/Count';
+@import 'Components/Filters';
+@import 'Components/File';
+@import 'Components/DateField';
+@import 'Components/SignIn';
+@import 'Components/FAQ';
+@import 'Components/Error';
+
+body {
+  background-color: $black;
+}
+
+#main {
+  padding-top: 91px;
+}
+
+.MainContent {
+  background-color: $light;
+  min-height: calc(100vh - 91px);
+  display: flex;
+}

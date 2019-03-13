@@ -1,0 +1,27 @@
+{
+  "presets": [
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
+    "stage-0",
+    "react"
+  ],
+  "env": {
+    "test": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  },
+  "plugins": [
+    [
+      "transform-runtime",
+      "transform-async-to-generator",
+      {
+        "polyfill": false,
+        "regenerator": true
+      }
+    ]
+  ]
+}
