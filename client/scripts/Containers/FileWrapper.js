@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { sortFiles } from '../utils';
 
 import Filters from './Filters';
-import File from '../Components/File';
 import RecipeReviewCard from '../Components/card';
 import Count from '../Components/Count';
 import Button from '../Components/Button';
@@ -107,11 +106,6 @@ export default class FileWrapper extends Component {
         <RecipeReviewCard
           details={file}
           deleteFile={this.props.deleteFile}
-        />
-        <File
-          details={file}
-          deleteFile={this.props.deleteFile}
-          className="col-md-4"
         />
       </div>
     ));

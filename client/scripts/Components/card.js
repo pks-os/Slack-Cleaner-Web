@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { formatBytes } from '../utils';
+import moment from 'moment';
+
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Delete from '@material-ui/icons/Delete';
 import blue from '@material-ui/core/es/colors/blue';
+
+import NoFileImage from '../../images/file.svg';
 
 const styles = theme => ({
   card: {
@@ -40,46 +41,45 @@ const styles = theme => ({
   },
 });
 
+function renderImage(file) {
+  switch (file.mimetype) {
+    case 'image/jpeg':
+      return file.thumb_480 || file.thumb_360;
+    case 'image/png':
+      return file.thumb_480 || file.thumb_360;
+    case 'image/svg+xml':
+      return file.url_private;
+    case 'image/gif':
+      return file.thumb_360_gif;
+    default:
+      return NoFileImage;
+  }
+}
+
+
 class RecipeReviewCard extends React.Component {
 
   render() {
     const { classes, details, deleteFile } = this.props;
+    const date = moment.unix(details.created).fromNow();
+    const sizeAndDate = `${formatBytes(details.size)} / ${date}`;
+    const shortFileName = (details.name.length && details.name.length >= 10) ? `${details.name.slice(0, 10)}...` : details.name;
 
     return (
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar}>
-              {details.filetype}
-            </Avatar>
+            <Avatar aria-label="Recipe" className={classes.avatar}>{details.filetype}</Avatar>
           }
           action={
-            <IconButton>
-              <MoreVertIcon/>
-            </IconButton>
+            <IconButton onClick={() => deleteFile(details.id)}><Delete/></IconButton>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={
+            <div className={classes.title}>{shortFileName}</div>
+          }
+          subheader={sizeAndDate}
         />
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/paella.jpg"
-          title="Paella dish"
-        />
-        <CardContent>
-          <Typography component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
-          </Typography>
-        </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon/>
-          </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon/>
-          </IconButton>
-        </CardActions>
+        <CardMedia className={classes.media} image={renderImage(details)} title={shortFileName}/>
       </Card>
     );
   }
