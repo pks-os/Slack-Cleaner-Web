@@ -5,6 +5,7 @@ import { sortFiles } from '../utils';
 
 import Filters from './Filters';
 import File from '../Components/File';
+import RecipeReviewCard from '../Components/card';
 import Count from '../Components/Count';
 import Button from '../Components/Button';
 
@@ -103,6 +104,10 @@ export default class FileWrapper extends Component {
 
     return files.map((file) => (
       <div className="col-md-3" key={file.id}>
+        <RecipeReviewCard
+          details={file}
+          deleteFile={this.props.deleteFile}
+        />
         <File
           details={file}
           deleteFile={this.props.deleteFile}
@@ -117,7 +122,7 @@ export default class FileWrapper extends Component {
       return (
         <div className="FileWrapper FileWrapper--start">
           <div className="FileWrapper__message">
-            <img src={friendlyBud} alt="Slack Cleaner Bud" />
+            <img src={friendlyBud} alt="Slack Cleaner Bud"/>
             <h2>Oh hey, welcome to the Slack Cleaner!</h2>
 
             <p className="lead">How to use this contraption</p>
@@ -139,7 +144,7 @@ export default class FileWrapper extends Component {
       return (
         <div className="FileWrapper FileWrapper--start">
           <div className="FileWrapper__message">
-            <img src={stokedBud} alt="Slack Cleaner Bud" />
+            <img src={stokedBud} alt="Slack Cleaner Bud"/>
             <h2>Zap! Deleted!</h2>
             <p className="lead">You get them all from that search!</p>
             <p>Try another search to see if there is anything left!</p>
@@ -150,7 +155,7 @@ export default class FileWrapper extends Component {
       return (
         <div className="FileWrapper FileWrapper--start">
           <div className="FileWrapper__message">
-            <img src={congratsBud} alt="Slack Cleaner Bud" />
+            <img src={congratsBud} alt="Slack Cleaner Bud"/>
             <h2>Sweet! There is nothing there!</h2>
             <p className="lead">
               Usually no results is a bad thing, but this is great!
