@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { formatBytes } from '../utils';
-import moment from 'moment';
-
+// begin of material UI
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -12,8 +10,11 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
 import blue from '@material-ui/core/es/colors/blue';
+// end of material UI
 
-import NoFileImage from '../../images/file.svg';
+import moment from 'moment';
+import { formatBytes } from '../../utils';
+import { renderImage } from '../../utils/render.util';
 
 const styles = theme => ({
   card: {
@@ -22,6 +23,7 @@ const styles = theme => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    margin: '10px',
   },
   actions: {
     display: 'flex',
@@ -41,23 +43,9 @@ const styles = theme => ({
   },
 });
 
-function renderImage(file) {
-  switch (file.mimetype) {
-    case 'image/jpeg':
-      return file.thumb_480 || file.thumb_360;
-    case 'image/png':
-      return file.thumb_480 || file.thumb_360;
-    case 'image/svg+xml':
-      return file.url_private;
-    case 'image/gif':
-      return file.thumb_360_gif;
-    default:
-      return NoFileImage;
-  }
-}
+//Component
 
-
-class RecipeReviewCard extends React.Component {
+class CardComponent extends React.Component {
 
   render() {
     const { classes, details, deleteFile } = this.props;
@@ -85,10 +73,10 @@ class RecipeReviewCard extends React.Component {
   }
 }
 
-RecipeReviewCard.propTypes = {
+CardComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   details: PropTypes.object,
   deleteFile: PropTypes.func,
 };
 
-export default withStyles(styles)(RecipeReviewCard);
+export default withStyles(styles)(CardComponent);
