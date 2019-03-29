@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 // end of material UI
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -30,6 +30,7 @@ const styles = theme => ({
 const SelectComponent = ({
   classes,
   value = '',
+  isChannel = false,
   options = [],
   onChange = () => {
   },
@@ -42,6 +43,13 @@ const SelectComponent = ({
     }
   };
 
+  const mutatedOptions = isChannel ? options.map((option) => {
+    return {
+      ...option,
+      name: `#${option.name}`,
+    };
+  }) : [...options];
+
   return (
     <form className={classes.root} autoComplete="off">
       <FormControl variant="outlined" className={classes.formControl}>
@@ -53,8 +61,10 @@ const SelectComponent = ({
           onChange={handleEvent}
         >
           <MenuItem className={classes.selectItem} value="">All channels</MenuItem>
-          {options.map((option) => (
-            <MenuItem className={classes.selectItem} key={option.id} value={option.id}># {option.name}</MenuItem>
+          {mutatedOptions.map((option) => (
+            <MenuItem className={classes.selectItem} key={option.id} value={option.id}>
+              {option.name}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -67,6 +77,7 @@ SelectComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   value: PropTypes.string,
   options: PropTypes.array,
+  isChannel: PropTypes.boolean,
   onChange: PropTypes.func,
 };
 

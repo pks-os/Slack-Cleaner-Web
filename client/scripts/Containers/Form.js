@@ -77,6 +77,7 @@ class Form extends Component {
           <SelectComponent
             options={channels}
             value={this.state.channel}
+            isChannel
             onChange={this.handleChannelSelect}
           />
         </div>
