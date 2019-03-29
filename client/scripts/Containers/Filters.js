@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from '../Components/Select';
+
+import SelectComponent from '../Components/select/select.component';
 
 const CHANNELS = [
   { id: 'newest', name: 'Newest' },
@@ -15,13 +16,13 @@ const SIZE = [
 const Filters = ({ onDateChange, onSizeChange, sizeValue, dateValue }) => {
   return (
     <div className="Filters">
-      <Select
+      <SelectComponent
         label="Sort by Date"
         options={CHANNELS}
         onChange={onDateChange}
         value={dateValue}
       />
-      <Select
+      <SelectComponent
         label="Sort by Size"
         emptyValue="none"
         emptyText="None"

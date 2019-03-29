@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import DateFields from '../Components/DateFields';
 import Button from '../Components/Button';
 import Checkbox from '../Components/Checkbox';
-import Select from '../Components/Select';
 import Label from '../Components/Label';
+import DateFields from '../Components/DateFields';
+import SelectComponent from '../Components/select/select.component';
 
 import { TYPES_DICT, INIT_TYPES_STATE } from '../../../config/constants';
 
@@ -62,6 +62,7 @@ class Form extends Component {
   };
 
   handleChannelSelect = (e) => {
+
     this.setState({
       channel: e.target.value,
     });
@@ -71,16 +72,14 @@ class Form extends Component {
     const channels = this.props.channels;
     if (channels.length) {
       return (
-        <Select
-          label="Channels"
-          emptyText="All Channels"
-          emptyValue=""
-          options={channels}
-          darkLabel
-          isLarge
-          value={this.state.channel}
-          onChange={this.handleChannelSelect}
-        />
+        <div>
+          <Label darkLabel>Channels</Label>
+          <SelectComponent
+            options={channels}
+            value={this.state.channel}
+            onChange={this.handleChannelSelect}
+          />
+        </div>
       );
     }
   };
@@ -101,7 +100,7 @@ class Form extends Component {
 
   render() {
     const typeSelected = Object.keys(this.state.types).filter(
-      (type) => this.state.types[type] === true
+      (type) => this.state.types[type] === true,
     );
     return (
       <div className="Form">
