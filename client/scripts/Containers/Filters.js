@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SelectComponent from '../Components/select/select.component';
-import Label from '../Components/Label';
+import LabelComponent from '../Components/label/label.component';
 
 const CHANNELS = [
   { id: 'newest', name: 'Newest' },
@@ -18,14 +18,14 @@ const Filters = ({ onDateChange, onSizeChange, sizeValue, dateValue }) => {
   return (
     <div className="Filters">
 
-      <Label darkLabel>Sort by Date</Label>
+      <LabelComponent title={'Sort by Date'}/>
       <SelectComponent
         options={CHANNELS}
         onChange={onDateChange}
         value={dateValue}
       />
 
-      <Label darkLabel>Sort by Size</Label>
+      <LabelComponent title={'Sort by Size'}/>
       <SelectComponent
         emptyName={'None'}
         options={SIZE}

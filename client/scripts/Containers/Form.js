@@ -6,6 +6,7 @@ import Checkbox from '../Components/Checkbox';
 import Label from '../Components/Label';
 import DateFields from '../Components/DateFields';
 import SelectComponent from '../Components/select/select.component';
+import LabelComponent from '../Components/label/label.component';
 
 import { TYPES_DICT, INIT_TYPES_STATE } from '../../../config/constants';
 
@@ -73,7 +74,7 @@ class Form extends Component {
     if (channels.length) {
       return (
         <div>
-          <Label darkLabel>Channels</Label>
+          <LabelComponent title={'Channel'}/>
           <SelectComponent
             isChannel
             emptyName={'All Channels'}
@@ -106,10 +107,10 @@ class Form extends Component {
     );
     return (
       <div className="Form">
-        <h2>Search for Files</h2>
+        <h2 className="Form__SearchInfo">Search for Files</h2>
         <div className="Form__Field">{this.renderChannelSelect()}</div>
         <div className="Form__Field">
-          <Label darkLabel>Date Range</Label>
+          <LabelComponent title={'Date Range'}/>
           <DateFields
             onChange={this.updateDate}
             startDate={this.state.startDate}
@@ -117,7 +118,7 @@ class Form extends Component {
           />
         </div>
         <div className="Form__Field">
-          <Label darkLabel>Type of Files</Label>
+          <LabelComponent title={'Type of Files'}/>
           <Checkbox
             checked={!typeSelected.length}
             onChange={this.updateType}
