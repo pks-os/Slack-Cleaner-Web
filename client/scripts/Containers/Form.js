@@ -75,9 +75,10 @@ class Form extends Component {
         <div>
           <Label darkLabel>Channels</Label>
           <SelectComponent
+            isChannel
+            emptyName={'All Channels'}
             options={channels}
             value={this.state.channel}
-            isChannel
             onChange={this.handleChannelSelect}
           />
         </div>

@@ -31,6 +31,7 @@ const SelectComponent = ({
   classes,
   value = '',
   isChannel = false,
+  emptyName = '',
   options = [],
   onChange = () => {
   },
@@ -50,6 +51,9 @@ const SelectComponent = ({
     };
   }) : [...options];
 
+
+  const emptyMenuItem = (emptyName !== '') ? <MenuItem className={classes.selectItem} value="">{emptyName}</MenuItem> : null;
+
   return (
     <form className={classes.root} autoComplete="off">
       <FormControl variant="outlined" className={classes.formControl}>
@@ -60,7 +64,7 @@ const SelectComponent = ({
           className={classes.select}
           onChange={handleEvent}
         >
-          <MenuItem className={classes.selectItem} value="">All channels</MenuItem>
+          {emptyMenuItem}
           {mutatedOptions.map((option) => (
             <MenuItem className={classes.selectItem} key={option.id} value={option.id}>
               {option.name}
@@ -77,7 +81,7 @@ SelectComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   value: PropTypes.string,
   options: PropTypes.array,
-  isChannel: PropTypes.boolean,
+  isChannel: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
