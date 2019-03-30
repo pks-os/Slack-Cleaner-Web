@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import { FAQ as FAQQuestions } from '../../../config/constants';
 import PropTypes from 'prop-types';
 
-import Button from '../Components/Button';
+import ButtonComponent from './button/button.component';
 
 const FAQ = ({ onClose = null }) => {
   return (
     <Fragment>
       {onClose && (
-        <Button onClick={onClose} classes="FAQ__Close" text="Close" />
+        <ButtonComponent title={'Close'} icon={'Close'} onClick={onClose}/>
       )}
 
       <h3>What is this thing?!</h3>
