@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../Components/Button';
 import Checkbox from '../Components/Checkbox';
-import Label from '../Components/Label';
+import ButtonComponent from '../Components/button/button.component';
 import DateFields from '../Components/DateFields';
 import SelectComponent from '../Components/select/select.component';
 import LabelComponent from '../Components/label/label.component';
@@ -127,13 +126,7 @@ class Form extends Component {
           />
           {this.renderTypeOptions()}
         </div>
-        <Button
-          onClick={this.getFiles}
-          text="Get Files"
-          large
-          fullWidth
-          disabled={!this.props.isLoggedIn}
-        />
+        <ButtonComponent title={'Get files'} icon={'FolderShared'} disabled={!this.props.isLoggedIn} onClick={this.getFiles}/>
       </div>
     );
   }

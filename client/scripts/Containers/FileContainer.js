@@ -5,7 +5,7 @@ import { FileContext } from '../Providers/FileProvider';
 import Form from './Form';
 import FileWrapper from './FileWrapper';
 import SignIn from './SignIn';
-import Button from '../Components/Button';
+import ButtonComponent from '../Components/button/button.component';
 import FAQ from '../Components/FAQ';
 
 class FileContainer extends Component {
@@ -53,11 +53,7 @@ class FileContainer extends Component {
               Tweet about Slack Cleaner
             </a>
           </p>
-          <Button
-            onClick={this.toggleFAQ}
-            text="Questions? FAQ"
-            classes="FileWrapper__Details-faq"
-          />
+          <ButtonComponent title="Questions? FAQ" icon={'Help'} onClick={this.toggleFAQ} />
         </div>
       </div>
     );
