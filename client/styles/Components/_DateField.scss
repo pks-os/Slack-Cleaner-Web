@@ -8,8 +8,8 @@
 
 .DateRangePickerInput {
   background: $white;
-  border: 4px solid $black;
   width: 100%;
+  border-radius: 50px;
 }
 
 .DateInput_input {
@@ -31,7 +31,7 @@
 }
 
 .DateRangePickerInput__showClearDates {
-  padding-right: 20px;
+  padding: 0 20px 0 20px;
 }
 
 .DateInput_input__small {

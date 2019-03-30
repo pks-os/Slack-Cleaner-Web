@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import DateFields from '../Components/DateFields';
 import Button from '../Components/Button';
 import Checkbox from '../Components/Checkbox';
-import Select from '../Components/Select';
 import Label from '../Components/Label';
+import DateFields from '../Components/DateFields';
+import SelectComponent from '../Components/select/select.component';
+import LabelComponent from '../Components/label/label.component';
 
 import { TYPES_DICT, INIT_TYPES_STATE } from '../../../config/constants';
 
@@ -62,6 +63,7 @@ class Form extends Component {
   };
 
   handleChannelSelect = (e) => {
+
     this.setState({
       channel: e.target.value,
     });
@@ -71,16 +73,16 @@ class Form extends Component {
     const channels = this.props.channels;
     if (channels.length) {
       return (
-        <Select
-          label="Channels"
-          emptyText="All Channels"
-          emptyValue=""
-          options={channels}
-          darkLabel
-          isLarge
-          value={this.state.channel}
-          onChange={this.handleChannelSelect}
-        />
+        <div>
+          <LabelComponent title={'Channel'}/>
+          <SelectComponent
+            isChannel
+            emptyName={'All Channels'}
+            options={channels}
+            value={this.state.channel}
+            onChange={this.handleChannelSelect}
+          />
+        </div>
       );
     }
   };
@@ -101,14 +103,14 @@ class Form extends Component {
 
   render() {
     const typeSelected = Object.keys(this.state.types).filter(
-      (type) => this.state.types[type] === true
+      (type) => this.state.types[type] === true,
     );
     return (
       <div className="Form">
-        <h2>Search for Files</h2>
+        <h2 className="Form__SearchInfo">Search for Files</h2>
         <div className="Form__Field">{this.renderChannelSelect()}</div>
         <div className="Form__Field">
-          <Label darkLabel>Date Range</Label>
+          <LabelComponent title={'Date Range'}/>
           <DateFields
             onChange={this.updateDate}
             startDate={this.state.startDate}
@@ -116,7 +118,7 @@ class Form extends Component {
           />
         </div>
         <div className="Form__Field">
-          <Label darkLabel>Type of Files</Label>
+          <LabelComponent title={'Type of Files'}/>
           <Checkbox
             checked={!typeSelected.length}
             onChange={this.updateType}

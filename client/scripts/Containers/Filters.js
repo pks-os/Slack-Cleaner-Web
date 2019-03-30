@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from '../Components/Select';
+
+import SelectComponent from '../Components/select/select.component';
+import LabelComponent from '../Components/label/label.component';
 
 const CHANNELS = [
   { id: 'newest', name: 'Newest' },
@@ -15,20 +17,22 @@ const SIZE = [
 const Filters = ({ onDateChange, onSizeChange, sizeValue, dateValue }) => {
   return (
     <div className="Filters">
-      <Select
-        label="Sort by Date"
+
+      <LabelComponent title={'Sort by Date'}/>
+      <SelectComponent
         options={CHANNELS}
         onChange={onDateChange}
         value={dateValue}
       />
-      <Select
-        label="Sort by Size"
-        emptyValue="none"
-        emptyText="None"
+
+      <LabelComponent title={'Sort by Size'}/>
+      <SelectComponent
+        emptyName={'None'}
         options={SIZE}
         onChange={onSizeChange}
         value={sizeValue}
       />
+
     </div>
   );
 };
