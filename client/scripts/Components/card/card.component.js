@@ -15,11 +15,11 @@ import blue from '@material-ui/core/es/colors/blue';
 import moment from 'moment';
 import { formatBytes } from '../../utils';
 import { renderImage } from '../../utils/render.util';
-import Label from '../Label';
 
 const styles = (theme) => ({
   card: {
     maxWidth: 400,
+    marginBottom: '15px'
   },
   media: {
     height: 0,

@@ -6,7 +6,7 @@ import { sortFiles } from '../utils';
 import Filters from './Filters';
 import CardComponent from '../Components/card/card.component';
 import Count from '../Components/Count';
-import Button from '../Components/Button';
+import ButtonComponent from '../Components/button/button.component';
 
 import friendlyBud from '../../images/friendlyBud.svg';
 import stokedBud from '../../images/stokedBud.svg';
@@ -56,19 +56,9 @@ export default class FileWrapper extends Component {
 
     return (
       <div className="FileWrapper__paging">
-        <Button
-          onClick={this.onPageDecrement}
-          disabled={paging.page === 1}
-          text="Prev Page"
-          classes="FileWrapper__paging-button"
-        />
+        <ButtonComponent title={'Prev Page'} icon={'ChevronLeft'} disabled={paging.page === 1} onClick={this.onPageDecrement}/>
         <span className="FileWrapper__paging-count">Page {paging.page}</span>
-        <Button
-          onClick={this.onPageIncrement}
-          disabled={paging.page === paging.pages}
-          text="Next Page"
-          classes="FileWrapper__paging-button"
-        />
+        <ButtonComponent title={'Next Page'} icon={'ChevronRight'}  disabled={paging.page === paging.pages} onClick={this.onPageIncrement}/>
       </div>
     );
   }

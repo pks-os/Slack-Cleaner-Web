@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Components/Button';
+
+import ButtonComponent from './button/button.component';
 
 const Header = ({
   isLoggedIn = false,
@@ -10,14 +11,19 @@ const Header = ({
 }) => {
   let markup = null;
 
+  const logout = (e) => {
+    e.preventDefault();
+    window.location.replace('api/logout');
+  };
+
   if (isLoggedIn && name && avatar) {
     markup = (
       <Fragment>
         <p className="Header__Name">
           Hey {name} {isAdmin && <span className="red"> - ADMIN</span>}
         </p>
-        <img className="Header__Avatar" src={avatar} alt={name} />
-        <Button text="Logout" href="api/logout" isLink />
+        <img className="Header__Avatar" src={avatar} alt={name}/>
+        <ButtonComponent title={'Logout'} icon={'Person'} href="api/logout" onClick={logout}/>
       </Fragment>
     );
   } else {
