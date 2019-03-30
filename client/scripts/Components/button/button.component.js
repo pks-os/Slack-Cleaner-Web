@@ -10,11 +10,13 @@ import Person from '@material-ui/icons/Person';
 import Close from '@material-ui/icons/Close';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
+import blue from '@material-ui/core/es/colors/blue';
 // end of material ui//
 
 const styles = theme => ({
   fab: {
     margin: theme.spacing.unit,
+    color: blue[500]
   },
   extendedIcon: {
     marginRight: theme.spacing.unit,
