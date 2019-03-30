@@ -24,7 +24,7 @@ export default class FileWrapper extends Component {
   };
 
   state = {
-    size: 'none',
+    size: '',
     date: 'newest',
   };
 

@@ -15,8 +15,9 @@ import blue from '@material-ui/core/es/colors/blue';
 import moment from 'moment';
 import { formatBytes } from '../../utils';
 import { renderImage } from '../../utils/render.util';
+import Label from '../Label';
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
     maxWidth: 400,
   },
@@ -45,33 +46,34 @@ const styles = theme => ({
 
 //Component
 
-class CardComponent extends React.Component {
+const CardComponent = ({
+  classes,
+  details,
+  deleteFile,
+}) => {
 
-  render() {
-    const { classes, details, deleteFile } = this.props;
-    const date = moment.unix(details.created).fromNow();
-    const sizeAndDate = `${formatBytes(details.size)} / ${date}`;
-    const shortFileName = (details.name.length && details.name.length >= 10) ? `${details.name.slice(0, 10)}...` : details.name;
+  const date = moment.unix(details.created).fromNow();
+  const sizeAndDate = `${formatBytes(details.size)} / ${date}`;
+  const shortFileName = (details.name.length && details.name.length >= 10) ? `${details.name.slice(0, 10)}...` : details.name;
 
-    return (
-      <Card className={classes.card}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar}>{details.filetype}</Avatar>
-          }
-          action={
-            <IconButton onClick={() => deleteFile(details.id)}><Delete/></IconButton>
-          }
-          title={
-            <div className={classes.title}>{shortFileName}</div>
-          }
-          subheader={sizeAndDate}
-        />
-        <CardMedia className={classes.media} image={renderImage(details)} title={shortFileName}/>
-      </Card>
-    );
-  }
-}
+  return (
+    <Card className={classes.card}>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="Recipe" className={classes.avatar}>{details.filetype}</Avatar>
+        }
+        action={
+          <IconButton onClick={() => deleteFile(details.id)}><Delete/></IconButton>
+        }
+        title={
+          <div className={classes.title}>{shortFileName}</div>
+        }
+        subheader={sizeAndDate}
+      />
+      <CardMedia className={classes.media} image={renderImage(details)} title={shortFileName}/>
+    </Card>
+  );
+};
 
 CardComponent.propTypes = {
   classes: PropTypes.object.isRequired,
