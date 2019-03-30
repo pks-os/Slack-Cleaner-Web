@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from '../Components/Checkbox';
 import ButtonComponent from '../Components/button/button.component';
 import DateFields from '../Components/DateFields';
 import SelectComponent from '../Components/select/select.component';
 import LabelComponent from '../Components/label/label.component';
+import CheckboxComponent from '../Components/checkbox/checkbox.component';
 
 import { TYPES_DICT, INIT_TYPES_STATE } from '../../../config/constants';
 
@@ -89,7 +89,7 @@ class Form extends Component {
   renderTypeOptions = () => {
     return Object.keys(TYPES_DICT).map((type) => {
       return (
-        <Checkbox
+        <CheckboxComponent
           key={TYPES_DICT[type]}
           checked={this.state.types[type]}
           onChange={this.updateType}
@@ -118,7 +118,7 @@ class Form extends Component {
         </div>
         <div className="Form__Field">
           <LabelComponent title={'Type of Files'}/>
-          <Checkbox
+          <CheckboxComponent
             checked={!typeSelected.length}
             onChange={this.updateType}
             value="all"
