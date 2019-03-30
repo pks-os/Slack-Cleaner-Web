@@ -47,6 +47,7 @@ export default class DateFields extends Component {
           endDateId={'endDateId'}
           isOutsideRange={isAfterToday}
           showClearDates
+          hideKeyboardShortcutsPanel
           small
         />
       </div>
