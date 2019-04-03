@@ -9,13 +9,14 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import red from '@material-ui/core/es/colors/red';
 // end of material ui //
 
 const drawerWidth = 240;
+
+const smallScreen = window.innerWidth < 800;
 
 const styles = (theme) => ({
   root: {
@@ -49,7 +50,7 @@ const styles = (theme) => ({
     height: '25px',
     borderRadius: '50%',
     width: '25px',
-    marginRight: '30px'
+    marginRight: '30px',
   },
   red: {
     color: red[500],
@@ -57,6 +58,10 @@ const styles = (theme) => ({
   headerName: {
     marginRight: '20px',
     marginBottom: '0',
+    display: smallScreen ? 'none' : 'block'
+  },
+  contents: {
+    display: 'contents',
   },
 });
 
@@ -110,14 +115,14 @@ const AppBarComponent = ({
     );
   }
 
-  const iconButton = isLoggedIn ? <IconButton
+  const iconButton = isLoggedIn ? (<IconButton
     color="inherit"
     aria-label="Open drawer"
     onClick={handleEvent}
     className={classNames(classes.menuButton, open && classes.hide)}
   >
     <MenuIcon/>
-  </IconButton> : null;
+  </IconButton>) : null;
 
 
   return (
@@ -133,7 +138,7 @@ const AppBarComponent = ({
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Slack Cleaner
           </Typography>
-          <Button color="inherit">{markup}</Button>
+          <div className={classes.contents} color="inherit">{markup}</div>
         </Toolbar>
       </AppBar>
     </div>
