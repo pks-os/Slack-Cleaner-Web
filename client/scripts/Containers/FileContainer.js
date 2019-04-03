@@ -3,8 +3,6 @@ import React, { Component, Fragment } from 'react';
 import { formatBytes } from '../utils';
 import { FileContext } from '../Providers/FileProvider';
 import Form from './Form';
-import FileWrapper from './FileWrapper';
-import SignIn from './SignIn';
 import ButtonComponent from '../Components/button/button.component';
 import FAQ from '../Components/FAQ';
 
@@ -70,26 +68,6 @@ class FileContainer extends Component {
                 channels={context.channels}
                 isLoggedIn={context.isLoggedIn}
               />
-              {!context.isLoggedIn ? (
-                <SignIn />
-              ) : (
-                <Fragment>
-                  {this.showFAQ()}
-                  <FileWrapper
-                    hasRun={context.state.hasRun}
-                    hasFiles={context.state.hasFiles}
-                    teamName={context.teamName}
-                    paging={context.state.paging}
-                    files={context.state.files}
-                    deleteFile={context.deleteFile}
-                    handlePageUpdate={context.handlePageUpdate}
-                  />
-                  {this.displayBar(
-                    context.state.deletedSize,
-                    context.state.hasRun
-                  )}
-                </Fragment>
-              )}
             </main>
           </Fragment>
         )}

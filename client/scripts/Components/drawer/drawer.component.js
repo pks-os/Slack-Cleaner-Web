@@ -8,20 +8,16 @@ import AppBarComponent from '../app-bar/app-bar.component';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import FileProvider from '../../Providers/FileProvider';
+import FileContainer from '../../Containers/FileContainer';
 // end of material UI //
 
-const drawerWidth = 240;
+const drawerWidth = 345;
 
 const styles = (theme) => ({
   root: {
@@ -57,6 +53,9 @@ const styles = (theme) => ({
     }),
     marginLeft: 0,
   },
+  grow: {
+    width: '100%'
+  }
 });
 
 class PersistentDrawerLeft extends React.Component {
@@ -84,7 +83,11 @@ class PersistentDrawerLeft extends React.Component {
       isLoggedIn = false,
       name = '',
       avatar = '',
-      isAdmin = false
+      isAdmin = false,
+      accessToken,
+      channels,
+      userId,
+      updateError = () => {},
     } = this.props;
 
     const { open } = this.state;
@@ -111,28 +114,28 @@ class PersistentDrawerLeft extends React.Component {
           }}
         >
           <div className={classes.drawerHeader}>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Search for Files
+            </Typography>
             <IconButton onClick={this.handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
             </IconButton>
           </div>
           <Divider/>
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                <ListItemText primary={text}/>
-              </ListItem>
-            ))}
-          </List>
-          <Divider/>
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-                <ListItemText primary={text}/>
-              </ListItem>
-            ))}
-          </List>
+
+          {/*begin of filter component*/}
+          <FileProvider
+            isLoggedIn={isLoggedIn}
+            userId={userId}
+            accessToken={accessToken}
+            isAdmin={isAdmin}
+            channels={channels}
+            updateError={updateError}
+          >
+            <FileContainer />
+          </FileProvider>
+          {/* end of filter component*/}
+
         </Drawer>
         <main
           className={classNames(classes.content, {
@@ -177,6 +180,10 @@ PersistentDrawerLeft.propTypes = {
   name: PropTypes.string,
   avatar: PropTypes.string,
   isAdmin: PropTypes.bool,
+  accessToken: PropTypes.string,
+  channels: PropTypes.array,
+  updateError: PropTypes.func,
+  userId: PropTypes.string,
 };
 
 export default withStyles(styles, { withTheme: true })(PersistentDrawerLeft);
