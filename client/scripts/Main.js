@@ -148,15 +148,13 @@ export default class Main extends Component {
         isAdmin={this.state.isAdmin}
         avatar={this.state.profile.image_192 || this.state.profile.image_72}
         loading={this.state.loading}
+        teamName={this.state.profile.teamName}
+        userId={this.state.user_id}
+        accessToken={this.state.token}
+        channels={this.state.channels.list}
+        updateError={this.updateError}
       />
       /*<Fragment>
-        <Header
-          isLoggedIn={this.state.loggedIn}
-          name={this.state.profile.first_name}
-          isAdmin={this.state.isAdmin}
-          avatar={this.state.profile.image_192 || this.state.profile.image_72}
-          loading={this.state.loading}
-        />
         <FileProvider
           isLoggedIn={this.state.loggedIn}
           teamName={this.state.profile.teamName}

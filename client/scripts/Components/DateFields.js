@@ -48,6 +48,7 @@ export default class DateFields extends Component {
           isOutsideRange={isAfterToday}
           showClearDates
           hideKeyboardShortcutsPanel
+          orientation={'vertical'}
           small
         />
       </div>
