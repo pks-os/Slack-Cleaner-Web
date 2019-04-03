@@ -106,7 +106,6 @@ class Form extends Component {
     );
     return (
       <div className="Form">
-        <h2 className="Form__SearchInfo">Search for Files</h2>
         <div className="Form__Field">{this.renderChannelSelect()}</div>
         <div className="Form__Field">
           <LabelComponent title={'Date Range'}/>
