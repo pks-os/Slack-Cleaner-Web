@@ -1,26 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Raven from 'raven-js';
-import { Transition } from 'react-transition-group';
-
-import FileProvider from './Providers/FileProvider';
-import Header from './Components/Header';
-import ErrorBar from './Components/ErrorBar';
-import FileContainer from './Containers/FileContainer';
+import DrawerComponent from './Components/drawer/drawer.component';
 
 import { ENDPOINT } from '../../config/constants';
-
-const duration = 500;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0,
-};
-
-const transitionStyles = {
-  entering: { opacity: 0 },
-  entered: { opacity: 1 },
-};
 
 const INITIALSTATE = {
   loggedIn: false,
@@ -159,7 +142,14 @@ export default class Main extends Component {
 
   render() {
     return (
-      <Fragment>
+      <DrawerComponent
+        isLoggedIn={this.state.loggedIn}
+        name={this.state.profile.first_name}
+        isAdmin={this.state.isAdmin}
+        avatar={this.state.profile.image_192 || this.state.profile.image_72}
+        loading={this.state.loading}
+      />
+      /*<Fragment>
         <Header
           isLoggedIn={this.state.loggedIn}
           name={this.state.profile.first_name}
@@ -187,7 +177,7 @@ export default class Main extends Component {
             />
           )}
         </Transition>
-      </Fragment>
+      </Fragment>*/
     );
   }
 }
