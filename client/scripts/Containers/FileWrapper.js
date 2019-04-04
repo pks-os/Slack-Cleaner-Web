@@ -56,9 +56,9 @@ export default class FileWrapper extends Component {
 
     return (
       <div className="FileWrapper__paging">
-        <ButtonComponent title={'Prev Page'} icon={'ChevronLeft'} disabled={paging.page === 1} onClick={this.onPageDecrement}/>
+        <ButtonComponent title={'Prev Page'} icon={'ChevronLeft'} disabled={paging.page === 1} color={'default'} onClick={this.onPageDecrement}/>
         <span className="FileWrapper__paging-count">Page {paging.page}</span>
-        <ButtonComponent title={'Next Page'} icon={'ChevronRight'}  disabled={paging.page === paging.pages} onClick={this.onPageIncrement}/>
+        <ButtonComponent title={'Next Page'} icon={'ChevronRight'}  disabled={paging.page === paging.pages} color={'default'} onClick={this.onPageIncrement}/>
       </div>
     );
   }

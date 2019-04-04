@@ -51,7 +51,7 @@ class FileContainer extends Component {
               Tweet about Slack Cleaner
             </a>
           </p>
-          <ButtonComponent title="Questions? FAQ" icon={'Help'} onClick={this.toggleFAQ} />
+          <ButtonComponent title="Questions? FAQ" icon={'Help'} color={'default'} onClick={this.toggleFAQ} />
         </div>
       </div>
     );

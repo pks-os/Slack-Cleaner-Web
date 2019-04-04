@@ -114,7 +114,7 @@ class PersistentDrawerLeft extends React.Component {
           }}
         >
           <div className={classes.drawerHeader}>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
+            <Typography variant="h5" color="inherit" className={classes.grow}>
               Search for Files
             </Typography>
             <IconButton onClick={this.handleDrawerClose}>
