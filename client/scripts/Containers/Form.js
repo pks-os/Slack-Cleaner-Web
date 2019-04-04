@@ -11,7 +11,7 @@ import { TYPES_DICT, INIT_TYPES_STATE } from '../../../config/constants';
 
 class Form extends Component {
   static propTypes = {
-    getFiles: PropTypes.func,
+    onGetFiles: PropTypes.func,
     channels: PropTypes.array,
     isLoggedIn: PropTypes.bool,
   };
@@ -32,7 +32,7 @@ class Form extends Component {
     const fileTypes = Object.keys(types)
       .filter((type) => types[type] === true)
       .join(',');
-    this.props.getFiles(startDate, endDate, fileTypes, channel);
+    this.props.onGetFiles(startDate, endDate, fileTypes, channel);
   };
 
   updateField = (field, value) => {
@@ -125,7 +125,7 @@ class Form extends Component {
           />
           {this.renderTypeOptions()}
         </div>
-        <ButtonComponent title={'Get files'} icon={'FolderShared'} disabled={!this.props.isLoggedIn} onClick={this.getFiles}/>
+        <ButtonComponent title={'Get files'} icon={'Folder'} disabled={!this.props.isLoggedIn} color={'primary'} onClick={this.getFiles}/>
       </div>
     );
   }
