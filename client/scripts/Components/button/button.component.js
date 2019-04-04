@@ -3,23 +3,28 @@ import PropTypes from 'prop-types';
 
 // begin of material ui//
 import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import FolderShared from '@material-ui/icons/FolderShared';
+import Button from '@material-ui/core/Button';
+import Folder from '@material-ui/icons/Folder';
 import Help from '@material-ui/icons/Help';
 import Person from '@material-ui/icons/Person';
 import Close from '@material-ui/icons/Close';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
-import blue from '@material-ui/core/es/colors/blue';
 // end of material ui//
 
 const styles = theme => ({
-  fab: {
+  button: {
     margin: theme.spacing.unit,
-    color: blue[500]
+    borderRadius: '50px',
   },
   extendedIcon: {
     marginRight: theme.spacing.unit,
+  },
+  avatar: {
+    height: '25px',
+    borderRadius: '50%',
+    width: '25px',
+    marginRight: '30px',
   },
 });
 
@@ -28,6 +33,9 @@ function ButtonComponent(props) {
     title,
     icon,
     disabled = false,
+    color,
+    avatar,
+    name,
     onClick = () => {
     },
     classes,
@@ -38,9 +46,9 @@ function ButtonComponent(props) {
 
     switch (icon) {
 
-      case 'FolderShared':
+      case 'Folder':
 
-        return (<FolderShared className={classes.extendedIcon}/>);
+        return (<Folder className={classes.extendedIcon}/>);
 
       case 'Help':
 
@@ -68,28 +76,26 @@ function ButtonComponent(props) {
     }
   };
 
+  const renderAvatar = () => {
+    return (<img className={classes.avatar} src={avatar} alt={name}/>);
+  };
+
 
   return (
-    <div>
-      <Fab
-        variant="extended"
-        aria-label="Delete"
-        size={'small'}
-        className={classes.fab}
-        disabled={disabled}
-        onClick={onClick}
-      >
-        {renderIconComponent()}
-        {title}
-      </Fab>
-    </div>
+    <Button variant="contained" color={color} className={classes.button} disabled={disabled} onClick={onClick}>
+      {avatar ? renderAvatar() : renderIconComponent()}
+      {title}
+    </Button>
   );
 }
 
 ButtonComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
   icon: PropTypes.string,
+  avatar: PropTypes.string,
+  name: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };

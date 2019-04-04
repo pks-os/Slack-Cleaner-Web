@@ -125,7 +125,7 @@ class Form extends Component {
           />
           {this.renderTypeOptions()}
         </div>
-        <ButtonComponent title={'Get files'} icon={'FolderShared'} disabled={!this.props.isLoggedIn} onClick={this.getFiles}/>
+        <ButtonComponent title={'Get files'} icon={'Folder'} disabled={!this.props.isLoggedIn} color={'primary'} onClick={this.getFiles}/>
       </div>
     );
   }

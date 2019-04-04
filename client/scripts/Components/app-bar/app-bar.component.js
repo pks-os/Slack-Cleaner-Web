@@ -58,10 +58,13 @@ const styles = (theme) => ({
   headerName: {
     marginRight: '20px',
     marginBottom: '0',
-    display: smallScreen ? 'none' : 'block'
+    display: smallScreen ? 'none' : 'block',
   },
   contents: {
     display: 'contents',
+  },
+  slackLogin: {
+    borderRadius: '50px',
   },
 });
 
@@ -95,8 +98,15 @@ const AppBarComponent = ({
         <p className={classes.headerName}>
           {name} {isAdmin && <span className={classes.red}> - admin</span>}
         </p>
-        <img className={classes.avatar} src={avatar} alt={name}/>
-        <ButtonComponent title={'Logout'} icon={'Person'} href="api/logout" onClick={handleLogout}/>
+        <ButtonComponent
+          avatar={avatar}
+          name={name}
+          title={'Logout'}
+          icon={'Person'}
+          href="api/logout"
+          color={'default'}
+          onClick={handleLogout}
+        />
       </Fragment>
     );
   } else {
@@ -104,6 +114,7 @@ const AppBarComponent = ({
       <Fragment>
         <a className="LoginButton" href="auth/slack">
           <img
+            className={classes.slackLogin}
             alt="Sign in with Slack"
             height="40"
             width="172"

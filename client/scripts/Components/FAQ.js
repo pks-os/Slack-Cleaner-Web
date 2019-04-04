@@ -8,7 +8,7 @@ const FAQ = ({ onClose = null }) => {
   return (
     <Fragment>
       {onClose && (
-        <ButtonComponent title={'Close'} icon={'Close'} onClick={onClose}/>
+        <ButtonComponent title={'Close'} icon={'Close'} color={'default'} onClick={onClose}/>
       )}
 
       <h3>What is this thing?!</h3>
