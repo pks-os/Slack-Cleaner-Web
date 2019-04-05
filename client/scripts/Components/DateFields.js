@@ -45,6 +45,8 @@ export default class DateFields extends Component {
           startDateId={'startDate'}
           endDate={endDate}
           endDateId={'endDateId'}
+          verticalHeight={580}
+          daySize={30}
           isOutsideRange={isAfterToday}
           showClearDates
           hideKeyboardShortcutsPanel

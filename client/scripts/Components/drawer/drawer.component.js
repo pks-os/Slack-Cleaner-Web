@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import AppBarComponent from '../app-bar/app-bar.component';
 import FilterComponent from '../filter/filter.component';
+import GridComponent from '../grid/grid.component';
 
 import { ENDPOINT } from '../../../../config/constants';
 
@@ -21,7 +22,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 // end of material UI //
 
-const drawerWidth = 345;
+const drawerWidth = open ? 345 : 0;
 
 const styles = (theme) => ({
   root: {
@@ -40,9 +41,10 @@ const styles = (theme) => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
+    minHeight: '0px !important'
   },
   content: {
-    flexGrow: 1,
+    flexGrow: open ? 1 : 0,
     padding: theme.spacing.unit * 3,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
@@ -81,6 +83,10 @@ const INITIAL_STATE = {
     types: null,
     channel: null,
   },
+  size: '',
+  date: 'newest',
+  startDate: null,
+  endDate: null,
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -92,6 +98,19 @@ class PersistentDrawerLeft extends React.Component {
   componentWillUnmount() {
     clearInterval(this.myTimer);
   }
+
+  onSizeChange = (e) => {
+    this.setState({
+      size: e.target.value,
+    });
+  };
+
+  onDateChange = (data) => {
+    this.setState({
+      startDate: data.startDate,
+      endDate: data.endDate,
+    });
+  };
 
   getFiles = (from = null, to = null, types = null, channel = null) => {
     const now = moment()
@@ -322,43 +341,34 @@ class PersistentDrawerLeft extends React.Component {
           <FilterComponent
             isLoggedIn={isLoggedIn}
             channels={channels}
+            date={this.state.date}
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
             onGetFiles={this.getFiles}
+            onDateChange={this.onDateChange}
             updateError={updateError}
           />
 
         </Drawer>
-        <main
-          className={classNames(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        >
+        <main className={classNames(classes.content, { [classes.contentShift]: open })}>
           <div className={classes.drawerHeader}/>
 
+          <GridComponent
+            isLoggedIn={this.props.isLoggedIn}
+            hasRun={this.state.hasRun}
+            hasFiles={this.state.hasFiles}
+            teamName={this.props.teamName}
+            paging={this.state.paging}
+            deletedSize={this.state.deletedSize}
+            files={this.state.files}
+            open={this.state.open}
+            size={this.state.size}
+            daate={this.state.date}
+            onDeleteFile={this.deleteFile}
+            handlePageUpdate={this.handlePageUpdate}
+            updateError={updateError}
+          />
 
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
-            elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
-            hendrerit gravida rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-            Amet nisl suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod quis
-            viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum leo.
-            Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus
-            at augue. At augue eget arcu dictum varius duis at consectetur lorem. Velit sed
-            ullamcorper morbi tincidunt. Lorem donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-            facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-            tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-            consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus
-            sed vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in.
-            In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-            et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique
-            sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo
-            viverra maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
         </main>
       </div>
     );
@@ -376,6 +386,7 @@ PersistentDrawerLeft.propTypes = {
   channels: PropTypes.array,
   updateError: PropTypes.func,
   userId: PropTypes.string,
+  teamName: PropTypes.string,
 };
 
 export default withStyles(styles, { withTheme: true })(PersistentDrawerLeft);

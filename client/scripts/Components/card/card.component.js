@@ -19,12 +19,12 @@ import { renderImage } from '../../utils/render.util';
 const styles = (theme) => ({
   card: {
     maxWidth: 400,
-    marginBottom: '15px'
+    marginBottom: '15px',
+    boxShadow: 'none'
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
-    margin: '10px',
+    paddingTop: '120%',
   },
   actions: {
     display: 'flex',

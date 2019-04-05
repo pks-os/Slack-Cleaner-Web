@@ -39,7 +39,6 @@
   }
 }
 
-@import 'Components/Button';
 @import 'Components/Label';
 @import 'Components/Form';
 @import 'Components/FileWrapper';
@@ -56,10 +55,4 @@ body {
 
 #main {
   padding-top: 91px;
-}
-
-.MainContent {
-  background-color: $light;
-  min-height: calc(100vh - 91px);
-  display: flex;
 }

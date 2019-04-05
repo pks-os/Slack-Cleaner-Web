@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Raven from 'raven-js';
 import DrawerComponent from './Components/drawer/drawer.component';
 
 import { ENDPOINT } from '../../config/constants';
+import Transition from 'react-transition-group/Transition';
+import ErrorBar from './Components/ErrorBar';
 
 const INITIALSTATE = {
   loggedIn: false,
@@ -68,10 +70,10 @@ export default class Main extends Component {
           this.updateError(
             // I know...
             // eslint-disable-next-line
-            "Something's wrong. Try again later",
-            'getUserAuth catch block'
+            'Something\'s wrong. Try again later',
+            'getUserAuth catch block',
           );
-        }
+        },
       );
     }
   };
@@ -134,7 +136,7 @@ export default class Main extends Component {
         setTimeout(() => {
           this.setState({ error: INITIALSTATE.error });
         }, 5000);
-      }
+      },
     );
 
     Raven.captureMessage(errorTrack);
@@ -142,30 +144,19 @@ export default class Main extends Component {
 
   render() {
     return (
-      <DrawerComponent
-        isLoggedIn={this.state.loggedIn}
-        name={this.state.profile.first_name}
-        isAdmin={this.state.isAdmin}
-        avatar={this.state.profile.image_192 || this.state.profile.image_72}
-        loading={this.state.loading}
-        teamName={this.state.profile.teamName}
-        userId={this.state.user_id}
-        accessToken={this.state.token}
-        channels={this.state.channels.list}
-        updateError={this.updateError}
-      />
-      /*<Fragment>
-        <FileProvider
+      <Fragment>
+        <DrawerComponent
           isLoggedIn={this.state.loggedIn}
+          name={this.state.profile.first_name}
+          isAdmin={this.state.isAdmin}
+          avatar={this.state.profile.image_192 || this.state.profile.image_72}
+          loading={this.state.loading}
           teamName={this.state.profile.teamName}
           userId={this.state.user_id}
           accessToken={this.state.token}
-          isAdmin={this.state.isAdmin}
           channels={this.state.channels.list}
           updateError={this.updateError}
-        >
-          <FileContainer />
-        </FileProvider>
+        />
         <Transition in={this.state.error.present} timeout={1000} unmountOnExit>
           {(state) => (
             <ErrorBar
@@ -175,7 +166,7 @@ export default class Main extends Component {
             />
           )}
         </Transition>
-      </Fragment>*/
+      </Fragment>
     );
   }
 }
