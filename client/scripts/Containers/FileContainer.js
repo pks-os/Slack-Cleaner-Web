@@ -10,13 +10,11 @@ class FileContainer extends Component {
       <FileContext.Consumer>
         {(context) => (
           <Fragment>
-            <main className="MainContent cf">
-              <Form
-                getFiles={context.files}
-                channels={context.channels}
-                isLoggedIn={context.isLoggedIn}
-              />
-            </main>
+            <Form
+              getFiles={context.files}
+              channels={context.channels}
+              isLoggedIn={context.isLoggedIn}
+            />
           </Fragment>
         )}
       </FileContext.Consumer>

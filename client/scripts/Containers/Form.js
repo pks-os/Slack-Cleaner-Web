@@ -14,21 +14,23 @@ class Form extends Component {
     onGetFiles: PropTypes.func,
     channels: PropTypes.array,
     isLoggedIn: PropTypes.bool,
+    startDate: PropTypes.object,
+    endDate: PropTypes.object,
+    onDateChange: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      startDate: null,
-      endDate: null,
       types: INIT_TYPES_STATE,
       channel: '',
     };
   }
 
   getFiles = () => {
-    const { startDate, endDate, types, channel } = this.state;
+    const { types, channel } = this.state;
+    const { startDate, endDate } = this.props;
     const fileTypes = Object.keys(types)
       .filter((type) => types[type] === true)
       .join(',');
@@ -40,8 +42,7 @@ class Form extends Component {
   };
 
   updateDate = ({ startDate, endDate }) => {
-    // console.log(startDate, endDate);
-    this.setState({ startDate, endDate });
+    this.props.onDateChange({ startDate, endDate });
   };
 
   updateType = (e) => {
@@ -111,8 +112,8 @@ class Form extends Component {
           <LabelComponent title={'Date Range'}/>
           <DateFields
             onChange={this.updateDate}
-            startDate={this.state.startDate}
-            endDate={this.state.endDate}
+            startDate={this.props.startDate}
+            endDate={this.props.endDate}
           />
         </div>
         <div className="Form__Field">
