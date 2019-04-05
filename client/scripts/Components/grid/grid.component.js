@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import FAQ from '../FAQ';
 import { formatBytes, sortFiles } from '../../utils';
+import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Button from '../Button';
 import Count from '../Count';
 import SignIn from '../../Containers/SignIn';
@@ -133,9 +134,10 @@ const GridComponent = ({
     }
 
     const sortedFiles = sortFiles(files, size, date);
+    const columnsSize = calculateColumnsNumber(window.innerWidth);
 
     return sortedFiles.map((file) => (
-      <Grid item xs={3} key={file.id}>
+      <Grid item xs={columnsSize} key={file.id}>
         <Paper className={classes.paper}>
           <CardComponent
             details={file}
@@ -146,7 +148,7 @@ const GridComponent = ({
     ));
   };
 
-  const displayFilters = () => {
+  const displayInfo = () => {
 
     if (!files.length) {
       return null;
@@ -169,6 +171,20 @@ const GridComponent = ({
           onSizeChange={this.onSizeChange}
           onDateChange={this.onDateChange}
         />*/
+  };
+
+  const displayPagination = () => {
+
+    if (!files.length) {
+      return null;
+    }
+    return (
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          {displayButtons()}
+        </Paper>
+      </Grid>
+    );
   };
 
   const render = () => {
@@ -196,9 +212,9 @@ const GridComponent = ({
       <div className={classes.root}>
         <Grid container spacing={24}>
 
-          {displayFilters()}
+          {displayInfo()}
           {renderFiles()}
-
+          {displayPagination()}
         </Grid>
       </div>
       {render()}
