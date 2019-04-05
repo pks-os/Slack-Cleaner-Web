@@ -40,29 +40,6 @@ export default class FileWrapper extends Component {
     });
   };
 
-  onPageDecrement = (val) => {
-    if (val <= 1) return;
-    this.props.handlePageUpdate(this.props.paging.page - 1);
-  };
-
-  onPageIncrement = (val) => {
-    if (val > this.props.paging.pages) return;
-    this.props.handlePageUpdate(this.props.paging.page + 1);
-  };
-
-  displayButtons() {
-    const paging = this.props.paging;
-    if (paging.pages === 1) return;
-
-    return (
-      <div className="FileWrapper__paging">
-        <ButtonComponent title={'Prev Page'} icon={'ChevronLeft'} disabled={paging.page === 1} color={'default'} onClick={this.onPageDecrement}/>
-        <span className="FileWrapper__paging-count">Page {paging.page}</span>
-        <ButtonComponent title={'Next Page'} icon={'ChevronRight'}  disabled={paging.page === paging.pages} color={'default'} onClick={this.onPageIncrement}/>
-      </div>
-    );
-  }
-
   displayFilters() {
     const files = this.props.files;
     if (!files.length) {
@@ -71,13 +48,6 @@ export default class FileWrapper extends Component {
 
     return (
       <div className="FileWrapper__Bar">
-        <Count
-          data={files}
-          total={this.props.paging.total}
-          teamName={this.props.teamName}
-        />
-        {this.displayButtons()}
-
         <Filters
           sizeValue={this.state.size}
           dateValue={this.state.date}
@@ -151,7 +121,6 @@ export default class FileWrapper extends Component {
     }
     return (
       <div className="FileWrapper">
-        {this.displayFilters()}
         <div className="FileWrapper__List row">{this.renderFiles()}</div>
       </div>
     );

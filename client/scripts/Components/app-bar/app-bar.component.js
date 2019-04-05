@@ -14,8 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import red from '@material-ui/core/es/colors/red';
 // end of material ui //
 
-const drawerWidth = 240;
-
+const drawerWidth = 345;
 const smallScreen = window.innerWidth < 800;
 
 const styles = (theme) => ({

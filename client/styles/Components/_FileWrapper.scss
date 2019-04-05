@@ -12,7 +12,7 @@ $FileWrapperWidth: calc(100% - 290px);
   }
 
   &__paging {
-    display: flex;
+    display: block;
 
     &-button {
       font-size: 12px;
