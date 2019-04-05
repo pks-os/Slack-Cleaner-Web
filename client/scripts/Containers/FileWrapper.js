@@ -5,8 +5,6 @@ import { sortFiles } from '../utils';
 
 import Filters from './Filters';
 import CardComponent from '../Components/card/card.component';
-import Count from '../Components/Count';
-import ButtonComponent from '../Components/button/button.component';
 
 import friendlyBud from '../../images/friendlyBud.svg';
 import stokedBud from '../../images/stokedBud.svg';

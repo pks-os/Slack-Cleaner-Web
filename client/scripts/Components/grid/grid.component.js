@@ -2,18 +2,19 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import FAQ from '../FAQ';
-import { formatBytes } from '../../utils';
+import { formatBytes, sortFiles } from '../../utils';
 import Button from '../Button';
 import Count from '../Count';
 import SignIn from '../../Containers/SignIn';
 import FileWrapper from '../../Containers/FileWrapper';
 
+import ButtonComponent from '../button/button.component';
+import CardComponent from '../card/card.component';
+
 // begin of material ui //
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Filters from '../../Containers/Filters';
-import ButtonComponent from '../button/button.component';
 // end of material ui //
 
 const styles = (theme) => ({
@@ -36,6 +37,8 @@ const GridComponent = ({
   paging,
   files,
   deletedSize,
+  size,
+  date,
   onDeleteFile = () => {
   },
   handlePageUpdate = () => {
@@ -106,7 +109,7 @@ const GridComponent = ({
 
   const displayButtons = () => {
 
-    if ( (paging.pages === 1) || !files.length) return;
+    if ((paging.pages === 1) || !files.length) return;
 
     return (
       <div className="FileWrapper__paging">
@@ -123,7 +126,28 @@ const GridComponent = ({
     );
   };
 
+  const renderFiles = () => {
+
+    if (!files) {
+      return null;
+    }
+
+    const sortedFiles = sortFiles(files, size, date);
+
+    return sortedFiles.map((file) => (
+      <Grid item xs={3} key={file.id}>
+        <Paper className={classes.paper}>
+          <CardComponent
+            details={file}
+            deleteFile={onDeleteFile}
+          />
+        </Paper>
+      </Grid>
+    ));
+  };
+
   const displayFilters = () => {
+
     if (!files.length) {
       return null;
     }
@@ -144,7 +168,8 @@ const GridComponent = ({
           dateValue={this.state.date}
           onSizeChange={this.onSizeChange}
           onDateChange={this.onDateChange}
-        />*/};
+        />*/
+  };
 
   const render = () => {
     return (!isLoggedIn ? (
@@ -172,19 +197,8 @@ const GridComponent = ({
         <Grid container spacing={24}>
 
           {displayFilters()}
+          {renderFiles()}
 
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
-          </Grid>
         </Grid>
       </div>
       {render()}
@@ -201,6 +215,8 @@ GridComponent.propTypes = {
   paging: PropTypes.object,
   files: PropTypes.array,
   deletedSize: PropTypes.number,
+  size: PropTypes.string,
+  date: PropTypes.string,
   onDeleteFile: PropTypes.func,
   handlePageUpdate: PropTypes.func,
 };

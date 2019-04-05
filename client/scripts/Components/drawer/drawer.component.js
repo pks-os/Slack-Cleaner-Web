@@ -361,6 +361,8 @@ class PersistentDrawerLeft extends React.Component {
             deletedSize={this.state.deletedSize}
             files={this.state.files}
             open={this.state.open}
+            size={this.state.size}
+            daate={this.state.date}
             onDeleteFile={this.deleteFile}
             handlePageUpdate={this.handlePageUpdate}
             updateError={updateError}
