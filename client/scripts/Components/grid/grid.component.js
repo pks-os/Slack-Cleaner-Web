@@ -52,8 +52,6 @@ const GridComponent = ({
 
   const renderButtons = () => {
 
-    if ((paging.pages === 1) || !files.length) return;
-
     return (
       <div className="FileWrapper__paging">
         <ButtonComponent
@@ -116,7 +114,7 @@ const GridComponent = ({
 
   const renderPagination = () => {
 
-    if (!files.length) {
+    if ((paging.pages === 1) || !files.length) {
       return null;
     }
     return (
@@ -126,12 +124,6 @@ const GridComponent = ({
         </Paper>
       </Grid>
     );
-  };
-
-  const render = () => {
-    return (!isLoggedIn ? (
-      <SignIn/>
-    ) : null);
   };
 
   return (
@@ -145,7 +137,6 @@ const GridComponent = ({
 
         </Grid>
       </div>
-      {render()}
     </Fragment>
   );
 };

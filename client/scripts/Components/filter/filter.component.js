@@ -11,8 +11,8 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   root: {
     backgroundColor: '$light',
-    display: 'flex'
-  }
+    display: 'flex',
+  },
 };
 
 const FilterComponent = ({
@@ -23,11 +23,13 @@ const FilterComponent = ({
   startDate,
   endDate,
   showFaq,
-  onGetFiles = () => {},
-  onDateChange = () => {},
-  onToggleFAQ = () => {}
+  onGetFiles = () => {
+  },
+  onDateChange = () => {
+  },
+  onToggleFAQ = () => {
+  },
 }) => {
-
 
   const showFAQ = () => {
     if (!showFaq) {

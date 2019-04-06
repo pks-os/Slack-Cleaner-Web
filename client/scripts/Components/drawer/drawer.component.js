@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import throttle from 'lodash.throttle';
@@ -88,6 +88,7 @@ const INITIAL_STATE = {
   startDate: null,
   endDate: null,
   showFaq: false,
+  getFilesFirstTime: true,
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -173,6 +174,7 @@ class PersistentDrawerLeft extends React.Component {
     if (await !this.startTimer()) {
       return;
     }
+
 
     try {
       const res = await axios.get(`${ENDPOINT}files.list`, {
@@ -312,11 +314,13 @@ class PersistentDrawerLeft extends React.Component {
       accessToken,
       channels,
       userId,
-      updateError = () => {},
-      sendNotification = () => {},
+      updateError = () => {
+      },
+      sendNotification = () => {
+      },
     } = this.props;
 
-    const { open } = this.state;
+    const { open, getFilesFirstTime } = this.state;
 
     return (
       <div className={classes.root}>
@@ -396,6 +400,7 @@ PersistentDrawerLeft.propTypes = {
   channels: PropTypes.array,
   userId: PropTypes.string,
   teamName: PropTypes.string,
+  getFilesFirstTime: PropTypes.bool,
   updateError: PropTypes.func,
   sendNotification: PropTypes.func,
 };
