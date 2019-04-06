@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { formatBytes, sortFiles } from '../../utils';
+import { sortFiles } from '../../utils';
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Count from '../Count';
 import SignIn from '../../Containers/SignIn';
@@ -28,33 +28,17 @@ const styles = (theme) => ({
 const GridComponent = ({
   classes,
   isLoggedIn,
-  hasRun,
   hasFiles,
   teamName,
   paging,
   files,
-  deletedSize,
   size,
   date,
-  onDeleteFile = () => {},
+  onDeleteFile = () => {
+  },
   handlePageUpdate = () => {
   },
 }) => {
-
-  const renderBar = (deletedSize, hasRun) => {
-    return (
-      <div className="FileWrapper__Details">
-        <div>
-          {deletedSize > 0 && hasRun ? (
-            <p className="Count__Text">
-              Nice! You just saved{' '}
-              <span className="red">{formatBytes(deletedSize)}</span>
-            </p>
-          ) : null}
-        </div>
-      </div>
-    );
-  };
 
   const onPageDecrement = (val) => {
     if (val <= 1) return;
@@ -130,25 +114,6 @@ const GridComponent = ({
         />*/
   };
 
-  const renderDeletedInfo = (deletedSize, hasRun) => {
-
-    if (!files.length) {
-      return null;
-    }
-    return (
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          {!(deletedSize > 0 && hasRun) ? (
-            <p className="Count__Text">
-              Nice! You just saved{' '}
-              <span className="red">{formatBytes(deletedSize)}</span>
-            </p>
-          ) : null}
-        </Paper>
-      </Grid>
-    );
-  };
-
   const renderPagination = () => {
 
     if (!files.length) {
@@ -166,11 +131,7 @@ const GridComponent = ({
   const render = () => {
     return (!isLoggedIn ? (
       <SignIn/>
-    ) : (
-      <Fragment>
-        {renderBar(deletedSize, hasRun)}
-      </Fragment>
-    ));
+    ) : null);
   };
 
   return (
@@ -179,9 +140,8 @@ const GridComponent = ({
         <Grid container spacing={24}>
 
           {renderInfo()}
-          {renderDeletedInfo()}
           {renderFiles()}
-          {renderPagination(deletedSize, hasRun)}
+          {renderPagination()}
 
         </Grid>
       </div>
@@ -193,12 +153,10 @@ const GridComponent = ({
 GridComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool,
-  hasRun: PropTypes.bool,
   hasFiles: PropTypes.bool,
   teamName: PropTypes.string,
   paging: PropTypes.object,
   files: PropTypes.array,
-  deletedSize: PropTypes.number,
   size: PropTypes.string,
   date: PropTypes.string,
   onDeleteFile: PropTypes.func,
