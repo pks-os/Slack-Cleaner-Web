@@ -41,7 +41,6 @@ const styles = (theme) => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-    minHeight: '0px !important',
   },
   content: {
     flexGrow: open ? 1 : 0,
