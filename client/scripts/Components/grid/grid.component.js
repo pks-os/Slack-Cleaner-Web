@@ -1,14 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import FAQ from '../FAQ';
-import { formatBytes, sortFiles } from '../../utils';
+import { sortFiles } from '../../utils';
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
-import Button from '../Button';
 import Count from '../Count';
 import SignIn from '../../Containers/SignIn';
-import FileWrapper from '../../Containers/FileWrapper';
-
 import ButtonComponent from '../button/button.component';
 import CardComponent from '../card/card.component';
 
@@ -32,12 +28,10 @@ const styles = (theme) => ({
 const GridComponent = ({
   classes,
   isLoggedIn,
-  hasRun,
   hasFiles,
   teamName,
   paging,
   files,
-  deletedSize,
   size,
   date,
   onDeleteFile = () => {
@@ -45,58 +39,6 @@ const GridComponent = ({
   handlePageUpdate = () => {
   },
 }) => {
-
-  let showFaq = false;
-
-  const toggleFAQ = () => {
-    showFaq = !showFaq;
-  };
-
-  const showFAQ = () => {
-    if (!showFaq) {
-      return null;
-    }
-
-    return (
-      <div className="FAQ">
-        <div className="FAQ__Wrapper">
-          <FAQ onClose={toggleFAQ}/>
-        </div>
-      </div>
-    );
-  };
-
-  const displayBar = (deletedSize, hasRun) => {
-    return (
-      <div className="FileWrapper__Details">
-        <div>
-          {deletedSize > 0 && hasRun ? (
-            <p className="Count__Text">
-              Nice! You just saved{' '}
-              <span className="red">{formatBytes(deletedSize)}</span>
-            </p>
-          ) : null}
-        </div>
-        <div className="FileWrapper__Details-share">
-          <p>
-            <a
-              href="https://twitter.com/intent/tweet?text=Delete%20and%20manage%20files%20from%20your%20Slack%20workspace%20with%20Slack%20Cleaner&url=https://www.slackcleaner.com&hashtags=slack&via=drewisthe"
-              className="twitter-share-button Button"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Tweet about Slack Cleaner
-            </a>
-          </p>
-          <Button
-            onClick={toggleFAQ}
-            text="Questions? FAQ"
-            classes="FileWrapper__Details-faq"
-          />
-        </div>
-      </div>
-    );
-  };
 
   const onPageDecrement = (val) => {
     if (val <= 1) return;
@@ -108,9 +50,7 @@ const GridComponent = ({
     handlePageUpdate(paging.page + 1);
   };
 
-  const displayButtons = () => {
-
-    if ((paging.pages === 1) || !files.length) return;
+  const renderButtons = () => {
 
     return (
       <div className="FileWrapper__paging">
@@ -148,7 +88,7 @@ const GridComponent = ({
     ));
   };
 
-  const displayInfo = () => {
+  const renderInfo = () => {
 
     if (!files.length) {
       return null;
@@ -161,7 +101,6 @@ const GridComponent = ({
             total={paging.total}
             teamName={teamName}
           />
-          {displayButtons()}
         </Paper>
       </Grid>
     );
@@ -173,38 +112,18 @@ const GridComponent = ({
         />*/
   };
 
-  const displayPagination = () => {
+  const renderPagination = () => {
 
-    if (!files.length) {
+    if ((paging.pages === 1) || !files.length) {
       return null;
     }
     return (
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          {displayButtons()}
+          {renderButtons()}
         </Paper>
       </Grid>
     );
-  };
-
-  const render = () => {
-    return (!isLoggedIn ? (
-      <SignIn/>
-    ) : (
-      <Fragment>
-        {showFAQ()}
-        <FileWrapper
-          hasRun={hasRun}
-          hasFiles={hasFiles}
-          teamName={teamName}
-          paging={paging}
-          files={files}
-          deleteFile={onDeleteFile}
-          handlePageUpdate={handlePageUpdate}
-        />
-        {displayBar(deletedSize, hasRun)}
-      </Fragment>
-    ));
   };
 
   return (
@@ -212,12 +131,12 @@ const GridComponent = ({
       <div className={classes.root}>
         <Grid container spacing={24}>
 
-          {displayInfo()}
+          {renderInfo()}
           {renderFiles()}
-          {displayPagination()}
+          {renderPagination()}
+
         </Grid>
       </div>
-      {render()}
     </Fragment>
   );
 };
@@ -225,12 +144,10 @@ const GridComponent = ({
 GridComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool,
-  hasRun: PropTypes.bool,
   hasFiles: PropTypes.bool,
   teamName: PropTypes.string,
   paging: PropTypes.object,
   files: PropTypes.array,
-  deletedSize: PropTypes.number,
   size: PropTypes.string,
   date: PropTypes.string,
   onDeleteFile: PropTypes.func,

@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Raven from 'raven-js';
-import DrawerComponent from './Components/drawer/drawer.component';
 
+import DrawerComponent from './Components/drawer/drawer.component';
+import SnackbarComponent from './Components/snackbar/snackbar.component';
 import { ENDPOINT } from '../../config/constants';
-import Transition from 'react-transition-group/Transition';
-import ErrorBar from './Components/ErrorBar';
+
+import Snackbar from '@material-ui/core/Snackbar';
 
 const INITIALSTATE = {
   loggedIn: false,
@@ -21,6 +22,13 @@ const INITIALSTATE = {
   error: {
     present: false,
     message: '',
+  },
+  notificationInfo: {
+    message: '',
+    variant: 'success',
+    open: false,
+    vertical: 'bottom',
+    horizontal: 'right',
   },
 };
 
@@ -98,6 +106,17 @@ export default class Main extends Component {
     }
   };
 
+  onCloseNotification = () => {
+
+    this.setState(
+      {
+        notificationInfo: {
+          ...this.state.notificationInfo,
+          open: false,
+        },
+      });
+  };
+
   getPrivateGroups = async (token) => {
     if (token.length) {
       const res = await axios.get(`${ENDPOINT}groups.list`, {
@@ -118,6 +137,28 @@ export default class Main extends Component {
         });
       }
     }
+  };
+
+  sendNotification = (data) => {
+
+    this.setState(
+      {
+        notificationInfo: {
+          ...this.state.notificationInfo,
+          ...data,
+          open: true,
+        },
+      });
+
+    setTimeout(() => {
+      this.setState(
+        {
+          notificationInfo: {
+            ...this.state.notificationInfo,
+            open: false,
+          },
+        });
+    }, 8000);
   };
 
   updateError = (message = '', errorTrack = '') => {
@@ -145,6 +186,24 @@ export default class Main extends Component {
   render() {
     return (
       <Fragment>
+
+        {/*Snackbar - main component for notifications*/}
+        <Snackbar
+          anchorOrigin={{
+            vertical: this.state.notificationInfo.vertical,
+            horizontal: this.state.notificationInfo.horizontal,
+          }}
+          open={this.state.notificationInfo.open}
+        >
+          <SnackbarComponent
+            variant={this.state.notificationInfo.variant}
+            message={this.state.notificationInfo.message}
+            onClose={this.onCloseNotification}
+          />
+        </Snackbar>
+        {/*end of Snackbar*/}
+
+        {/*Drawer - main component*/}
         <DrawerComponent
           isLoggedIn={this.state.loggedIn}
           name={this.state.profile.first_name}
@@ -156,16 +215,10 @@ export default class Main extends Component {
           accessToken={this.state.token}
           channels={this.state.channels.list}
           updateError={this.updateError}
+          sendNotification={this.sendNotification}
         />
-        <Transition in={this.state.error.present} timeout={1000} unmountOnExit>
-          {(state) => (
-            <ErrorBar
-              present={this.state.error.present}
-              message={this.state.error.message}
-              styles={{ ...defaultStyle, ...transitionStyles[state] }}
-            />
-          )}
-        </Transition>
+        {/*end of Drawer*/}
+
       </Fragment>
     );
   }
