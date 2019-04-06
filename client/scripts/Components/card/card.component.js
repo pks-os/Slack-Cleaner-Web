@@ -78,7 +78,7 @@ const CardComponent = ({
 CardComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   details: PropTypes.object,
-  deleteFile: PropTypes.func,
+  deleteFile: PropTypes.func
 };
 
 export default withStyles(styles)(CardComponent);
