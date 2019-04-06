@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import throttle from 'lodash.throttle';
@@ -8,7 +8,6 @@ import moment from 'moment';
 import AppBarComponent from '../app-bar/app-bar.component';
 import FilterComponent from '../filter/filter.component';
 import GridComponent from '../grid/grid.component';
-
 import { ENDPOINT } from '../../../../config/constants';
 
 // begin of material UI //
@@ -20,6 +19,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { formatBytes } from '../../utils';
 // end of material UI //
 
 const drawerWidth = open ? 345 : 0;
@@ -41,7 +41,7 @@ const styles = (theme) => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-    minHeight: '0px !important'
+    minHeight: '0px !important',
   },
   content: {
     flexGrow: open ? 1 : 0,
@@ -87,6 +87,8 @@ const INITIAL_STATE = {
   date: 'newest',
   startDate: null,
   endDate: null,
+  showFaq: false,
+  getFilesFirstTime: true,
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -102,6 +104,12 @@ class PersistentDrawerLeft extends React.Component {
   onSizeChange = (e) => {
     this.setState({
       size: e.target.value,
+    });
+  };
+
+  toggleFAQ = () => {
+    this.setState({
+      showFaq: !this.state.showFaq,
     });
   };
 
@@ -166,6 +174,7 @@ class PersistentDrawerLeft extends React.Component {
     if (await !this.startTimer()) {
       return;
     }
+
 
     try {
       const res = await axios.get(`${ENDPOINT}files.list`, {
@@ -242,25 +251,23 @@ class PersistentDrawerLeft extends React.Component {
       this.setState({ rate_count: this.state.rate_count + 1 });
 
       if (!res.data.ok) {
-        this.props.updateError(
-          'Slack said no :(. Try it again',
-          'callDeleteFile - res was not ok',
-        );
+        const message = `Slack said no :(. Try it again. File with id: ${fileId} cannot be deleted now.`;
+        this.onSendNotification(message, 'warning');
       } else {
         this.deleteFile(fileId);
       }
     } catch (err) {
-      this.props.updateError(
-        'You must be logged in!',
-        `callDeleteFile - ${err}`,
-      );
+      const message = `You must be logged in! - ${err}`;
+      this.onSendNotification(message, 'error');
     }
   }, 1000);
 
   deleteFile = (fileId) => {
+
     const file = this.state.files.filter((item) => item.id === fileId)[0];
     const filteredFiles = this.state.files.filter((item) => item.id !== fileId);
     const fileSize = file.size + this.state.deletedSize;
+
     if (!filteredFiles.length) {
       this.setState({
         files: [],
@@ -275,6 +282,8 @@ class PersistentDrawerLeft extends React.Component {
       error: INITIAL_STATE.error,
       deletedSize: fileSize,
     });
+
+    this.onSendNotification(`Deleted file with id: ${fileId}, you just saved ${formatBytes(fileSize)}`, 'success');
   };
 
   handleDrawerOpen = () => {
@@ -283,6 +292,10 @@ class PersistentDrawerLeft extends React.Component {
 
   handleDrawerClose = () => {
     this.setState({ open: false });
+  };
+
+  onSendNotification = (message, variant) => {
+    this.props.sendNotification({ message, variant });
   };
 
   Logout = (e) => {
@@ -303,9 +316,11 @@ class PersistentDrawerLeft extends React.Component {
       userId,
       updateError = () => {
       },
+      sendNotification = () => {
+      },
     } = this.props;
 
-    const { open } = this.state;
+    const { open, getFilesFirstTime } = this.state;
 
     return (
       <div className={classes.root}>
@@ -346,6 +361,7 @@ class PersistentDrawerLeft extends React.Component {
             endDate={this.state.endDate}
             onGetFiles={this.getFiles}
             onDateChange={this.onDateChange}
+            onToggleFAQ={this.toggleFAQ}
             updateError={updateError}
           />
 
@@ -355,16 +371,14 @@ class PersistentDrawerLeft extends React.Component {
 
           <GridComponent
             isLoggedIn={this.props.isLoggedIn}
-            hasRun={this.state.hasRun}
             hasFiles={this.state.hasFiles}
             teamName={this.props.teamName}
             paging={this.state.paging}
-            deletedSize={this.state.deletedSize}
             files={this.state.files}
             open={this.state.open}
             size={this.state.size}
             daate={this.state.date}
-            onDeleteFile={this.deleteFile}
+            onDeleteFile={this.callDeleteFile}
             handlePageUpdate={this.handlePageUpdate}
             updateError={updateError}
           />
@@ -384,9 +398,11 @@ PersistentDrawerLeft.propTypes = {
   isAdmin: PropTypes.bool,
   accessToken: PropTypes.string,
   channels: PropTypes.array,
-  updateError: PropTypes.func,
   userId: PropTypes.string,
   teamName: PropTypes.string,
+  getFilesFirstTime: PropTypes.bool,
+  updateError: PropTypes.func,
+  sendNotification: PropTypes.func,
 };
 
 export default withStyles(styles, { withTheme: true })(PersistentDrawerLeft);
