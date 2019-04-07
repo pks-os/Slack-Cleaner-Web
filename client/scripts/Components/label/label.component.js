@@ -10,7 +10,6 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
     fontSize: '15px',
-    borderRadius: '50px'
   }
 });
 

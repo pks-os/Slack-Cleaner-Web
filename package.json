@@ -20,12 +20,6 @@
     },
     "setupTestFrameworkScriptFile": "./config/setupTests.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test && npm run lint",
-      "pre-push": "npm test && npm run lint"
-    }
-  },
   "scripts": {
     "start": "NODE_ENV=production node index.js",
     "prod": "npm run lint && npm test && npm run asset-build",
@@ -40,6 +34,11 @@
   "author": "Drew Minns",
   "license": "ISC",
   "dependencies": {
+    "@emotion/core": "latest",
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-brands-svg-icons": "^5.8.1",
+    "@fortawesome/free-solid-svg-icons": "^5.8.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "autoprefixer": "^8.1.0",
@@ -79,6 +78,7 @@
     "react": "^16.3.0",
     "react-dates": "^16.4.0",
     "react-dom": "^16.3.0",
+    "react-spinners": "^0.5.4",
     "react-transition-group": "^2.3.1",
     "rimraf": "^2.6.2",
     "sass-loader": "^6.0.7",
