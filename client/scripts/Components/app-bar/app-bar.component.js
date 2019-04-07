@@ -110,7 +110,7 @@ const AppBarComponent = ({
     markup = (
       <Fragment>
         <p className={classes.headerName}>
-          {name} {isAdmin && <span className={classes.red}> - admin</span>}
+          {name} ({isAdmin && <span className={classes.red}>admin</span>})
         </p>
         <ButtonComponent
           avatar={avatar}
