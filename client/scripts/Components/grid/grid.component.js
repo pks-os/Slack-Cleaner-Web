@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { sortFiles } from '../../utils';
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Count from '../Count';
-import SignIn from '../../Containers/SignIn';
 import ButtonComponent from '../button/button.component';
 import CardComponent from '../card/card.component';
 

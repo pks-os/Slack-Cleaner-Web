@@ -7,6 +7,7 @@ import SnackbarComponent from './Components/snackbar/snackbar.component';
 import { ENDPOINT } from '../../config/constants';
 
 import Snackbar from '@material-ui/core/Snackbar';
+import ModalComponent from './Components/modal/modal.component';
 
 const INITIALSTATE = {
   loggedIn: false,
@@ -30,6 +31,7 @@ const INITIALSTATE = {
     vertical: 'bottom',
     horizontal: 'right',
   },
+  modalOpen: false
 };
 
 export default class Main extends Component {
@@ -183,9 +185,27 @@ export default class Main extends Component {
     Raven.captureMessage(errorTrack);
   };
 
+  openModal = () => {
+
+    this.setState({
+      modalOpen: true
+    });
+  };
+
+  closeModal = () => {
+
+    this.setState({
+      modalOpen: false
+    });
+  };
+
   render() {
     return (
       <Fragment>
+
+        {/*Modal*/}
+        <ModalComponent open={this.state.modalOpen} onClose={this.closeModal}/>
+        {/*end of Modal*/}
 
         {/*Snackbar - main component for notifications*/}
         <Snackbar
@@ -216,6 +236,7 @@ export default class Main extends Component {
           channels={this.state.channels.list}
           updateError={this.updateError}
           sendNotification={this.sendNotification}
+          openModal={this.openModal}
         />
         {/*end of Drawer*/}
 

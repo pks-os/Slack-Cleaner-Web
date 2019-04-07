@@ -28,12 +28,14 @@
 
 .cf {
   *zoom: 1;
+
   &::before,
   &::after {
     display: table;
     content: '';
     line-height: 0;
   }
+
   &::after {
     clear: both;
   }
@@ -46,12 +48,16 @@
 @import 'Components/Filters';
 @import 'Components/DateField';
 @import 'Components/SignIn';
-@import 'Components/FAQ';
 @import 'Components/Error';
 
 body {
   background-color: $black;
 }
+
+html {
+  font-size: 14px;
+}
+
 
 #main {
   padding-top: 91px;
