@@ -184,13 +184,15 @@ const AppBarComponent = ({
           </Typography>
           <div className={classes.contents} color="inherit">
 
-            <IconButton
-              className={classes.navbar}
-              color="inherit"
-              onClick={handleModal}
-            >
-              <Help/>
-            </IconButton>
+            <Tooltip title={'Help'}>
+              <IconButton
+                className={classes.navbar}
+                color="inherit"
+                onClick={handleModal}
+              >
+                <Help/>
+              </IconButton>
+            </Tooltip>
 
             {!smallScreen ? markup : null}
           </div>
