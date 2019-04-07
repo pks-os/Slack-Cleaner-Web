@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import HowToReg from '@material-ui/icons/HowToReg';
 import Help from '@material-ui/icons/Help';
 import red from '@material-ui/core/es/colors/red';
 // end of material ui //
@@ -18,6 +19,7 @@ import red from '@material-ui/core/es/colors/red';
 const drawerWidth = (window.innerWidth < 800) ? window.innerWidth : 345;
 const smallScreen = window.innerWidth < 800;
 import slackCleanerLogo from '../../../images/slackCleaner.png';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = (theme) => ({
   root: {
@@ -110,7 +112,12 @@ const AppBarComponent = ({
     markup = (
       <Fragment>
         <p className={classes.headerName}>
-          {name} ({isAdmin && <span className={classes.red}>admin</span>})
+          {name} {isAdmin &&
+          <Tooltip title={'Worskpace admin'}>
+            <IconButton color="inherit">
+              <HowToReg/>
+            </IconButton>
+          </Tooltip>}
         </p>
         <ButtonComponent
           avatar={avatar}
