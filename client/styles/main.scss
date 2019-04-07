@@ -50,15 +50,11 @@
 @import 'Components/SignIn';
 @import 'Components/Error';
 
-body {
-  background-color: $black;
-}
-
 html {
   font-size: 15px;
 }
 
 
 #main {
-  padding-top: 91px;
+  height: 100vh;
 }

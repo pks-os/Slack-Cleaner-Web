@@ -15,7 +15,6 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
-    borderRadius: '50px',
   },
   extendedIcon: {
     marginRight: theme.spacing.unit,

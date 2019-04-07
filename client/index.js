@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Main from './scripts/Main';
 import Raven from 'raven-js';
 
-import './styles/main.scss';
 if (process.env.NODE_ENV === 'production') {
   Raven.config(process.env.SENTRY).install();
 }

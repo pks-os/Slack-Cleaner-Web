@@ -70,9 +70,6 @@ const styles = (theme) => ({
     height: '48px',
     padding: '12px',
   },
-  slackLogin: {
-    borderRadius: '50px',
-  },
   navbar: {
     display: smallScreen ? 'none' : 'block',
   },

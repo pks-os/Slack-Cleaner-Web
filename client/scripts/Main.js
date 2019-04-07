@@ -4,10 +4,15 @@ import Raven from 'raven-js';
 
 import DrawerComponent from './Components/drawer/drawer.component';
 import SnackbarComponent from './Components/snackbar/snackbar.component';
+import ModalComponent from './Components/modal/modal.component';
 import { ENDPOINT } from '../../config/constants';
 
 import Snackbar from '@material-ui/core/Snackbar';
-import ModalComponent from './Components/modal/modal.component';
+import LandingContainer from './Containers/landing/landing.container';
+import HashLoader from 'react-spinners/HashLoader';
+import { css } from '@emotion/core';
+
+import '../styles/main.scss';
 
 const INITIALSTATE = {
   loggedIn: false,
@@ -31,16 +36,37 @@ const INITIALSTATE = {
     vertical: 'bottom',
     horizontal: 'right',
   },
-  modalOpen: false
+  modalOpen: false,
+  loadingApp: true,
 };
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+    width: 300px;
+    height: 100px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -70px 0 0 -170px;
+`;
 
 export default class Main extends Component {
   state = INITIALSTATE;
+
 
   componentDidMount = async () => {
     await this.getUserAuth();
     await this.getChannels(this.state.token);
     await this.getPrivateGroups(this.state.token);
+
+    setTimeout(() => {
+      this.setState({
+        loadingApp: false,
+      });
+    }, 1000);
   };
 
   componentDidCatch(error, errorInfo) {
@@ -188,24 +214,21 @@ export default class Main extends Component {
   openModal = () => {
 
     this.setState({
-      modalOpen: true
+      modalOpen: true,
     });
   };
 
   closeModal = () => {
 
     this.setState({
-      modalOpen: false
+      modalOpen: false,
     });
   };
 
-  render() {
-    return (
-      <Fragment>
+  renderLandingPage = () => {
 
-        {/*Modal*/}
-        <ModalComponent open={this.state.modalOpen} onClose={this.closeModal}/>
-        {/*end of Modal*/}
+    return (!this.state.loggedIn) ? (<LandingContainer openModal={this.openModal}/>) :
+      (<Fragment>
 
         {/*Snackbar - main component for notifications*/}
         <Snackbar
@@ -240,6 +263,26 @@ export default class Main extends Component {
         />
         {/*end of Drawer*/}
 
+      </Fragment>);
+  };
+
+  render() {
+    return (
+      <Fragment>
+
+        {/*Modal*/}
+        <ModalComponent open={this.state.modalOpen} onClose={this.closeModal}/>
+        {/*end of Modal*/}
+
+        {this.state.loadingApp ? (
+          <HashLoader
+            css={override}
+            sizeUnit={'px'}
+            size={300}
+            color={'#3f51b5'}
+            loading={this.state.loadingApp}
+          />
+        ) : this.renderLandingPage()}
       </Fragment>
     );
   }
