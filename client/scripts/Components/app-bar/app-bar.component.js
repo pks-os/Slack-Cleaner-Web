@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Help from '@material-ui/icons/Help';
 import red from '@material-ui/core/es/colors/red';
 // end of material ui //
 
@@ -79,6 +80,8 @@ const AppBarComponent = ({
   },
   onLogout = () => {
   },
+  openModal = () => {
+  },
 }) => {
 
   let markup = null;
@@ -89,6 +92,10 @@ const AppBarComponent = ({
 
   const handleLogout = (e) => {
     onLogout(e);
+  };
+
+  const handleModal = () => {
+    openModal(true);
   };
 
   if (isLoggedIn && name && avatar) {
@@ -148,7 +155,17 @@ const AppBarComponent = ({
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Slack Cleaner
           </Typography>
-          <div className={classes.contents} color="inherit">{markup}</div>
+          <div className={classes.contents} color="inherit">
+
+            <IconButton
+              color="inherit"
+              onClick={handleModal}
+            >
+              <Help/>
+            </IconButton>
+
+            {markup}
+          </div>
         </Toolbar>
       </AppBar>
     </div>
@@ -165,6 +182,7 @@ AppBarComponent.propTypes = {
   isAdmin: PropTypes.bool,
   onChange: PropTypes.func,
   onLogout: PropTypes.func,
+  openModal: PropTypes.func,
 };
 
 export default withStyles(styles)(AppBarComponent);
