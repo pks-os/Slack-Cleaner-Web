@@ -15,8 +15,9 @@ import Help from '@material-ui/icons/Help';
 import red from '@material-ui/core/es/colors/red';
 // end of material ui //
 
-const drawerWidth = 345;
+const drawerWidth = (window.innerWidth < 800) ? window.innerWidth : 345;
 const smallScreen = window.innerWidth < 800;
+import slackCleanerLogo from '../../../images/slackCleaner.png';
 
 const styles = (theme) => ({
   root: {
@@ -63,8 +64,15 @@ const styles = (theme) => ({
   contents: {
     display: 'contents',
   },
+  loginButton: {
+    height: '48px',
+    padding: '12px',
+  },
   slackLogin: {
     borderRadius: '50px',
+  },
+  navbar: {
+    display: smallScreen ? 'none' : 'block',
   },
 });
 
@@ -117,18 +125,19 @@ const AppBarComponent = ({
     );
   } else {
     markup = (
-      <Fragment>
-        <a className="LoginButton" href="auth/slack">
-          <img
-            className={classes.slackLogin}
-            alt="Sign in with Slack"
-            height="40"
-            width="172"
-            src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
-            srcSet="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"
-          />
-        </a>
-      </Fragment>
+      <IconButton
+        href="auth/slack"
+        color="inherit"
+      >
+        <img
+          className={classes.slackLogin}
+          alt="Sign in with Slack"
+          height="40"
+          width="172"
+          src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
+          srcSet="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"
+        />
+      </IconButton>
     );
   }
 
@@ -140,6 +149,11 @@ const AppBarComponent = ({
   >
     <MenuIcon/>
   </IconButton>) : null;
+
+  const renderTitle = () => {
+
+    return !smallScreen ? 'Slack Cleaner' : '';
+  };
 
 
   return (
@@ -153,18 +167,25 @@ const AppBarComponent = ({
         <Toolbar>
           {iconButton}
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            Slack Cleaner
+
+            <IconButton color="inherit">
+              <img height="48" width="48px" src={slackCleanerLogo} alt={'Slack Cleaner Logo'}/>
+            </IconButton>
+
+            {renderTitle()}
+            {smallScreen ? markup : null}
           </Typography>
           <div className={classes.contents} color="inherit">
 
             <IconButton
+              className={classes.navbar}
               color="inherit"
               onClick={handleModal}
             >
               <Help/>
             </IconButton>
 
-            {markup}
+            {!smallScreen ? markup : null}
           </div>
         </Toolbar>
       </AppBar>
