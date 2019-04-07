@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Form from '../../Containers/Form';
-import FAQ from '../FAQ';
 
 // begin of material ui //
 import { withStyles } from '@material-ui/core/styles';
@@ -23,27 +22,10 @@ const FilterComponent = ({
   startDate,
   endDate,
   showFaq,
-  onGetFiles = () => {
-  },
-  onDateChange = () => {
-  },
-  onToggleFAQ = () => {
-  },
+  onGetFiles = () => {},
+  onDateChange = () => {},
+  onToggleFAQ = () => {},
 }) => {
-
-  const showFAQ = () => {
-    if (!showFaq) {
-      return null;
-    }
-
-    return (
-      <div className="FAQ">
-        <div className="FAQ__Wrapper">
-          <FAQ onClose={onToggleFAQ}/>
-        </div>
-      </div>
-    );
-  };
 
   const updateDate = ({ startDate, endDate }) => {
     onDateChange({ startDate, endDate });

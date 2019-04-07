@@ -297,6 +297,11 @@ class PersistentDrawerLeft extends React.Component {
     this.props.sendNotification({ message, variant });
   };
 
+  handleModal = (shouldOpen) => {
+    this.props.openModal(shouldOpen);
+  };
+
+
   Logout = (e) => {
     e.preventDefault();
     window.location.replace('api/logout');
@@ -315,8 +320,6 @@ class PersistentDrawerLeft extends React.Component {
       userId,
       updateError = () => {
       },
-      sendNotification = () => {
-      },
     } = this.props;
 
     const { open, getFilesFirstTime } = this.state;
@@ -332,6 +335,7 @@ class PersistentDrawerLeft extends React.Component {
           avatar={avatar}
           onChange={isLoggedIn ? this.handleDrawerOpen : null}
           onLogout={isLoggedIn ? this.Logout : null}
+          openModal={this.handleModal}
         />
         <Drawer
           className={classes.drawer}
@@ -402,6 +406,7 @@ PersistentDrawerLeft.propTypes = {
   getFilesFirstTime: PropTypes.bool,
   updateError: PropTypes.func,
   sendNotification: PropTypes.func,
+  openModal: PropTypes.func,
 };
 
 export default withStyles(styles, { withTheme: true })(PersistentDrawerLeft);
