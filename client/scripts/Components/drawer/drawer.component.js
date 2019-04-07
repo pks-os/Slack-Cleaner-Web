@@ -22,7 +22,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { formatBytes } from '../../utils';
 // end of material UI //
 
-const drawerWidth = open ? 345 : 0;
+const drawerWidthOpen = open ? 345 : 0;
+const drawerWidth = (window.innerWidth < 800) ? window.innerWidth : drawerWidthOpen;
 
 const styles = (theme) => ({
   root: {
