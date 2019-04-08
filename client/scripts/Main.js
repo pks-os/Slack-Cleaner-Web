@@ -66,7 +66,7 @@ export default class Main extends Component {
       this.setState({
         loadingApp: false,
       });
-    }, 1000);
+    }, 300);
   };
 
   componentDidCatch(error, errorInfo) {
