@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import throttle from 'lodash.throttle';
@@ -99,6 +99,13 @@ class PersistentDrawerLeft extends React.Component {
     ...INITIAL_STATE,
   };
 
+  componentDidMount = () => {
+
+    setTimeout(() => {
+      this.getFiles();
+    }, 1000);
+  };
+
   componentWillUnmount() {
     clearInterval(this.myTimer);
   }
@@ -177,7 +184,6 @@ class PersistentDrawerLeft extends React.Component {
       return;
     }
 
-
     try {
       const res = await axios.get(`${ENDPOINT}files.list`, {
         params: {
@@ -186,10 +192,10 @@ class PersistentDrawerLeft extends React.Component {
           ts_from: this.state.searchDetails.from,
           ts_to: this.state.searchDetails.to,
           page: this.state.currentPage,
-          types: this.state.searchDetails.types.length
+          types: this.state.searchDetails.types
             ? this.state.searchDetails.types
             : null,
-          channel: this.state.searchDetails.channel.length
+          channel: this.state.searchDetails.channel
             ? this.state.searchDetails.channel
             : null,
         },
@@ -220,6 +226,7 @@ class PersistentDrawerLeft extends React.Component {
         rate_count: this.state.rate_count + 1,
       });
     } catch (err) {
+      console.warn(err);
       this.props.updateError(
         'Slack looks like it is down :(',
         `getFiles - ${err}`,
