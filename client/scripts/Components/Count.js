@@ -2,6 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatBytes } from '../utils';
 
+// begin of material UI
+import FileCopy from '@material-ui/icons/FileCopy';
+import Equalizer from '@material-ui/icons/Equalizer';
+import Storage from '@material-ui/icons/Storage';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import Delete from '@material-ui/core/SvgIcon/SvgIcon';
+import CardActions from '@material-ui/core/CardActions';
+// end of material UI
+
 const Count = ({ data = [], teamName, total }) => {
   const amount = data.length;
   const fileSize = data.reduce((count, file) => {
@@ -14,15 +24,23 @@ const Count = ({ data = [], teamName, total }) => {
 
   return (
     <div className="Count">
-      <p className="Count__Text">
-        {messaging}{' '}
-        <span className="purple">
-          {total} {plural}
-        </span>{' '}
-        worth{' '}
-        <span className="red">{formatBytes(fileSize)}</span>
-        {' '}{finishText}
-      </p>
+
+      <Tooltip title={'Files'}>
+        <IconButton><FileCopy/></IconButton>
+      </Tooltip>
+
+      {total} {plural}{' '}
+
+      <Tooltip title={'Equals'}>
+        <IconButton><Equalizer/></IconButton>
+      </Tooltip>
+
+      {formatBytes(fileSize)}{' '}
+
+      <Tooltip title={'Storage'}>
+        <IconButton><Storage/></IconButton>
+      </Tooltip>
+
     </div>
   );
 };
