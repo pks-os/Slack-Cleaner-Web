@@ -17,6 +17,9 @@ import orange from '@material-ui/core/es/colors/orange';
 import green from '@material-ui/core/es/colors/green';
 import grey from '@material-ui/core/es/colors/grey';
 import purple from '@material-ui/core/es/colors/purple';
+import Storage from '@material-ui/icons/Storage';
+import AccessTime from '@material-ui/icons/AccessTime';
+import CardActions from '@material-ui/core/CardActions';
 // end of material UI
 
 import moment from 'moment';
@@ -29,6 +32,9 @@ const styles = (theme) => ({
     maxWidth: 400,
     marginBottom: '15px',
     boxShadow: 'none',
+  },
+  header: {
+    padding: '0'
   },
   media: {
     height: 0,
@@ -68,6 +74,10 @@ const styles = (theme) => ({
   presentations: {
     backgroundColor: orange[500],
   },
+  action: {
+    margin: '0',
+    marginLeft: 'auto'
+  }
 });
 
 //Component
@@ -78,30 +88,46 @@ const CardComponent = ({
   deleteFile,
 }) => {
 
-  const date = moment.unix(details.created).fromNow();
-  const sizeAndDate = `${formatBytes(details.size)} / ${date}`;
-  const shortFileName = (details.name.length && details.name.length >= 10) ? `${details.name.slice(0, 10)}...` : details.name;
+  const dateCreated = moment.unix(details.created).fromNow();
+  const fileSize = formatBytes(details.size);
+  const shortFileName = (details.name.length && details.name.length >= 30) ? `${details.name.slice(0, 30)}...` : details.name;
   const avatarCssType = detectFileType(details.filetype).cssType;
 
   return (
     <Card className={classes.card}>
       <CardHeader
+        className={classes.header}
         avatar={
-          <Tooltip title={avatarCssType}>
-            <Avatar aria-label={avatarCssType} className={detectColor(avatarCssType, classes)}>
-              {detectFileType(details.filetype).icon}
-            </Avatar>
+          <Tooltip title={details.name}>
+            <IconButton color="inherit">
+              <Avatar aria-label={avatarCssType} className={detectColor(avatarCssType, classes)}>
+                {detectFileType(details.filetype).icon}
+              </Avatar>
+            </IconButton>
           </Tooltip>
         }
-        action={
-          <IconButton onClick={() => deleteFile(details.id)}><Delete/></IconButton>
-        }
-        title={
-          <div className={classes.title}>{shortFileName}</div>
-        }
-        subheader={sizeAndDate}
+        title={shortFileName}
       />
       <CardMedia className={classes.media} image={renderImage(details)} title={shortFileName}/>
+      <CardActions className={classes.actions} disableActionSpacing>
+
+        <Tooltip title={fileSize}>
+          <IconButton color="inherit">
+            <Storage />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title={dateCreated}>
+          <IconButton color="inherit">
+            <AccessTime />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title={'Delete'}>
+          <IconButton className={classes.action} onClick={() => deleteFile(details.id)}><Delete/></IconButton>
+        </Tooltip>
+
+      </CardActions>
     </Card>
   );
 };
