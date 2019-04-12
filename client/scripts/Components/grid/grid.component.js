@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import { sortFiles } from '../../utils';
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Count from '../Count';
-import ButtonComponent from '../button/button.component';
 import CardComponent from '../card/card.component';
 
 // begin of material ui //
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
 // end of material ui //
 
 const styles = (theme) => ({
@@ -21,6 +23,9 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     color: theme.palette.text.secondary,
+  },
+  pagingAction: {
+    margin: '5px',
   },
 });
 
@@ -53,15 +58,16 @@ const GridComponent = ({
 
     return (
       <div className="FileWrapper__paging">
-        <ButtonComponent
-          title={'Prev Page'} icon={'ChevronLeft'} disabled={paging.page === 1} color={'default'}
-          onClick={onPageDecrement}
-        />
-        <span className="FileWrapper__paging-count">Page {paging.page}</span>
-        <ButtonComponent
-          title={'Next Page'} icon={'ChevronRight'} disabled={paging.page === paging.pages}
-          color={'default'} onClick={onPageIncrement}
-        />
+        <IconButton>
+          <ChevronLeft className={classes.pagingAction} disabled={paging.page === 1} onClick={onPageDecrement}/>
+        </IconButton>
+
+        <span className="FileWrapper__paging-count">{paging.page}</span>
+
+        <IconButton>
+          <ChevronRight className={classes.pagingAction} disabled={paging.page === paging.pages} onClick={onPageIncrement}/>
+        </IconButton>
+
       </div>
     );
   };
