@@ -5,6 +5,7 @@ import { sortFiles } from '../../utils';
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Count from '../Count';
 import CardComponent from '../card/card.component';
+import nothingFound from '../../../images/nothingFound.png';
 
 // begin of material ui //
 import { withStyles } from '@material-ui/core/styles';
@@ -65,7 +66,8 @@ const GridComponent = ({
         <span className="FileWrapper__paging-count">{paging.page}</span>
 
         <IconButton>
-          <ChevronRight className={classes.pagingAction} disabled={paging.page === paging.pages} onClick={onPageIncrement}/>
+          <ChevronRight className={classes.pagingAction} disabled={paging.page === paging.pages} onClick={onPageIncrement}
+          />
         </IconButton>
 
       </div>
@@ -74,23 +76,24 @@ const GridComponent = ({
 
   const renderFiles = () => {
 
-    if (!files) {
-      return null;
+    if (!files.length) {
+      return <img src={nothingFound} alt="Nothing Found"/>;
+    } else {
+
+      const sortedFiles = sortFiles(files, size, date);
+      const columnsSize = calculateColumnsNumber(window.innerWidth);
+
+      return sortedFiles.map((file) => (
+        <Grid item xs={columnsSize} key={file.id}>
+          <Paper className={classes.paper}>
+            <CardComponent
+              details={file}
+              deleteFile={onDeleteFile}
+            />
+          </Paper>
+        </Grid>
+      ));
     }
-
-    const sortedFiles = sortFiles(files, size, date);
-    const columnsSize = calculateColumnsNumber(window.innerWidth);
-
-    return sortedFiles.map((file) => (
-      <Grid item xs={columnsSize} key={file.id}>
-        <Paper className={classes.paper}>
-          <CardComponent
-            details={file}
-            deleteFile={onDeleteFile}
-          />
-        </Paper>
-      </Grid>
-    ));
   };
 
   const renderInfo = () => {
