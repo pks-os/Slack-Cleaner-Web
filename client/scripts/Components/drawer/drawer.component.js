@@ -100,10 +100,7 @@ class PersistentDrawerLeft extends React.Component {
   };
 
   componentDidMount = () => {
-
-    setTimeout(() => {
-      this.getFiles();
-    }, 1000);
+    this.getFiles();
   };
 
   componentWillUnmount() {
