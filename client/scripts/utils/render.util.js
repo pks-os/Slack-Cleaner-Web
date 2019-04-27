@@ -1,4 +1,4 @@
-import NoFileImage from '../../images/file.svg';
+import NoFileImage from '../../images/file.png';
 
 // render image helper function
 
