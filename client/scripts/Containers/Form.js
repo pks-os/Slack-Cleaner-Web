@@ -17,6 +17,12 @@ class Form extends Component {
     startDate: PropTypes.object,
     endDate: PropTypes.object,
     onDateChange: PropTypes.func,
+    sortBySizeValue: PropTypes.string,
+    sortByDateValue: PropTypes.string,
+    sortBySizeValues: PropTypes.array,
+    sortByDateValues: PropTypes.array,
+    onSortBySizeValueChange: PropTypes.func,
+    onSortByDateValueChange: PropTypes.func,
   };
 
   constructor(props) {
@@ -35,10 +41,6 @@ class Form extends Component {
       .filter((type) => types[type] === true)
       .join(',');
     this.props.onGetFiles(startDate, endDate, fileTypes, channel);
-  };
-
-  updateField = (field, value) => {
-    this.setState({ [field]: value });
   };
 
   updateDate = ({ startDate, endDate }) => {
@@ -62,11 +64,19 @@ class Form extends Component {
     });
   };
 
-  handleChannelSelect = (e) => {
+  handleChannelSelect = (value) => {
 
     this.setState({
-      channel: e.target.value,
+      channel: value,
     });
+  };
+
+  handleSortByDateSelect = (value) => {
+    this.props.onSortByDateValueChange(value);
+  };
+
+  handleSortBySizeSelect = (value) => {
+    this.props.onSortBySizeValueChange(value);
   };
 
   renderChannelSelect = () => {
@@ -102,12 +112,37 @@ class Form extends Component {
   };
 
   render() {
+
     const typeSelected = Object.keys(this.state.types).filter(
       (type) => this.state.types[type] === true,
     );
+
     return (
       <div className="Form">
+
+        <div className="Form__Field">
+          <LabelComponent title={'Sort By Date'}/>
+          <SelectComponent
+            options={this.props.sortByDateValues}
+            value={this.props.sortByDateValue}
+            onChange={this.handleSortByDateSelect}
+          />
+        </div>
+
+        <div className="Form__Field">
+          <LabelComponent title={'Sort By Size'}/>
+          <SelectComponent
+            emptyName={'None'}
+            options={this.props.sortBySizeValues}
+            value={this.state.sortBySizeValue}
+            onChange={this.handleSortBySizeSelect}
+          />
+        </div>
+
+        <hr/>
+
         <div className="Form__Field">{this.renderChannelSelect()}</div>
+
         <div className="Form__Field">
           <LabelComponent title={'Date Range'}/>
           <DateFields
@@ -116,6 +151,7 @@ class Form extends Component {
             endDate={this.props.endDate}
           />
         </div>
+
         <div className="Form__Field">
           <LabelComponent title={'Type of Files'}/>
           <CheckboxComponent
@@ -126,7 +162,9 @@ class Form extends Component {
           />
           {this.renderTypeOptions()}
         </div>
+
         <ButtonComponent title={'Get files'} icon={'Folder'} disabled={!this.props.isLoggedIn} color={'primary'} onClick={this.getFiles}/>
+
       </div>
     );
   }

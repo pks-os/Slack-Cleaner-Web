@@ -21,14 +21,26 @@ const FilterComponent = ({
   date,
   startDate,
   endDate,
-  showFaq,
+  sortBySizeValue,
+  sortByDateValue,
+  sortBySizeValues,
+  sortByDateValues,
+  onSortBySizeValueChange  = () => {},
+  onSortByDateValueChange  = () => {},
   onGetFiles = () => {},
   onDateChange = () => {},
-  onToggleFAQ = () => {},
 }) => {
 
   const updateDate = ({ startDate, endDate }) => {
     onDateChange({ startDate, endDate });
+  };
+
+  const handleSortByDateSelect = (value) => {
+    onSortByDateValueChange(value);
+  };
+
+  const handleSortBySizeSelect = (value) => {
+    onSortBySizeValueChange(value);
   };
 
   return (
@@ -40,6 +52,12 @@ const FilterComponent = ({
           startDate={startDate}
           endDate={endDate}
           isLoggedIn={isLoggedIn}
+          sortByDateValues={sortByDateValues}
+          sortBySizeValues={sortBySizeValues}
+          sortByDateValue={sortByDateValue}
+          sortBySizeValue={sortBySizeValue}
+          onSortBySizeValueChange={handleSortBySizeSelect}
+          onSortByDateValueChange={handleSortByDateSelect}
           onGetFiles={onGetFiles}
           onDateChange={updateDate}
         />
@@ -55,10 +73,14 @@ FilterComponent.propTypes = {
   date: PropTypes.string,
   startDate: PropTypes.object,
   endDate: PropTypes.object,
-  showFaq: PropTypes.bool,
   onGetFiles: PropTypes.func,
   onDateChange: PropTypes.func,
-  onToggleFAQ: PropTypes.func,
+  sortBySizeValue: PropTypes.string,
+  sortByDateValue: PropTypes.string,
+  sortBySizeValues: PropTypes.array,
+  sortByDateValues: PropTypes.array,
+  onSortBySizeValueChange: PropTypes.func,
+  onSortByDateValueChange: PropTypes.func,
 };
 
 export default withStyles(styles)(FilterComponent);
