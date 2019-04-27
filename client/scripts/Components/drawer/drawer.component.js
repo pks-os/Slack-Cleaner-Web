@@ -315,10 +315,7 @@ class PersistentDrawerLeft extends React.Component {
   };
 
   onSortBySizeValueChange = (value) => {
-    console.warn(this.state);
-    console.warn(value);
     this.setState({ sortBySizeValue: value });
-    console.warn(this.state);
   };
 
   Logout = (e) => {

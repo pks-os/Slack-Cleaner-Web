@@ -134,7 +134,7 @@ class Form extends Component {
           <SelectComponent
             emptyName={'None'}
             options={this.props.sortBySizeValues}
-            value={this.state.sortBySizeValue}
+            value={this.props.sortBySizeValue}
             onChange={this.handleSortBySizeSelect}
           />
         </div>
