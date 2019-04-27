@@ -19,7 +19,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { formatBytes } from '../../utils';
+import { formatBytes, sortFiles } from '../../utils';
 // end of material UI //
 
 import '../../../styles/main.scss';
@@ -89,8 +89,17 @@ const INITIAL_STATE = {
   date: 'newest',
   startDate: null,
   endDate: null,
-  showFaq: false,
   getFilesFirstTime: true,
+  sortByDateValues: [
+    { id: 'newest', name: 'Newest' },
+    { id: 'oldest', name: 'Oldest' },
+  ],
+  sortBySizeValues: [
+    { id: 'largest', name: 'Largest' },
+    { id: 'smallest', name: 'Smallest' },
+  ],
+  sortByDateValue: 'newest',
+  sortBySizeValue: '',
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -110,12 +119,6 @@ class PersistentDrawerLeft extends React.Component {
   onSizeChange = (e) => {
     this.setState({
       size: e.target.value,
-    });
-  };
-
-  toggleFAQ = () => {
-    this.setState({
-      showFaq: !this.state.showFaq,
     });
   };
 
@@ -223,7 +226,6 @@ class PersistentDrawerLeft extends React.Component {
         rate_count: this.state.rate_count + 1,
       });
     } catch (err) {
-      console.warn(err);
       this.props.updateError(
         'Slack looks like it is down :(',
         `getFiles - ${err}`,
@@ -308,6 +310,13 @@ class PersistentDrawerLeft extends React.Component {
     this.props.openModal(shouldOpen);
   };
 
+  onSortByDateValueChange = (value) => {
+    this.setState({ sortByDateValue: value });
+  };
+
+  onSortBySizeValueChange = (value) => {
+    this.setState({ sortBySizeValue: value });
+  };
 
   Logout = (e) => {
     e.preventDefault();
@@ -330,6 +339,8 @@ class PersistentDrawerLeft extends React.Component {
     } = this.props;
 
     const { open, getFilesFirstTime } = this.state;
+
+    const files = sortFiles(this.state.files, this.state.sortBySizeValue, this.state.sortByDateValue);
 
     return (
       <div className={classes.root}>
@@ -369,9 +380,14 @@ class PersistentDrawerLeft extends React.Component {
             date={this.state.date}
             startDate={this.state.startDate}
             endDate={this.state.endDate}
+            sortByDateValues={this.state.sortByDateValues}
+            sortBySizeValues={this.state.sortBySizeValues}
+            sortByDateValue={this.state.sortByDateValue}
+            sortBySizeValue={this.state.sortBySizeValue}
+            onSortBySizeValueChange={this.onSortBySizeValueChange}
+            onSortByDateValueChange={this.onSortByDateValueChange}
             onGetFiles={this.getFiles}
             onDateChange={this.onDateChange}
-            onToggleFAQ={this.toggleFAQ}
             updateError={updateError}
           />
 
@@ -384,7 +400,7 @@ class PersistentDrawerLeft extends React.Component {
             hasFiles={this.state.hasFiles}
             teamName={this.props.teamName}
             paging={this.state.paging}
-            files={this.state.files}
+            files={files}
             open={this.state.open}
             size={this.state.size}
             daate={this.state.date}

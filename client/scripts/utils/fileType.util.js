@@ -1,4 +1,4 @@
-import Folder from '@material-ui/icons/Delete';
+import Folder from '@material-ui/icons/Folder';
 import Notes from '@material-ui/icons/Notes';
 import Image from '@material-ui/icons/Image';
 import MovieFilter from '@material-ui/icons/MovieFilter';

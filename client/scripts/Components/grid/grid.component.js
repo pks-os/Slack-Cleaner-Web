@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { sortFiles } from '../../utils';
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Count from '../Count';
 import CardComponent from '../card/card.component';
@@ -80,10 +79,9 @@ const GridComponent = ({
       return <img src={nothingFound} alt="Nothing Found"/>;
     } else {
 
-      const sortedFiles = sortFiles(files, size, date);
       const columnsSize = calculateColumnsNumber(window.innerWidth);
 
-      return sortedFiles.map((file) => (
+      return files.map((file) => (
         <Grid item xs={columnsSize} key={file.id}>
           <Paper className={classes.paper}>
             <CardComponent
@@ -112,12 +110,6 @@ const GridComponent = ({
         </Paper>
       </Grid>
     );
-    /*<Filters
-          sizeValue={this.state.size}
-          dateValue={this.state.date}
-          onSizeChange={this.onSizeChange}
-          onDateChange={this.onDateChange}
-        />*/
   };
 
   const renderPagination = () => {

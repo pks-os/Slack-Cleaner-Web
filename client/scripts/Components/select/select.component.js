@@ -37,10 +37,9 @@ const SelectComponent = ({
   },
 }) => {
 
-
   const handleEvent = (e) => {
     if (e.target.value !== value) {
-      onChange(e);
+      onChange(e.target.value);
     }
   };
 
@@ -50,7 +49,6 @@ const SelectComponent = ({
       name: `#${option.name}`,
     };
   }) : [...options];
-
 
   const emptyMenuItem = (emptyName !== '') ? <MenuItem className={classes.selectItem} value="">{emptyName}</MenuItem> : null;
 
@@ -66,7 +64,7 @@ const SelectComponent = ({
         >
           {emptyMenuItem}
           {mutatedOptions.map((option) => (
-            <MenuItem className={classes.selectItem} key={option.id} value={option.id}>
+            <MenuItem className={classes.selectItem} selected={option.id === value} key={option.id} value={option.id}>
               {option.name}
             </MenuItem>
           ))}
@@ -75,7 +73,6 @@ const SelectComponent = ({
     </form>
   );
 };
-
 
 SelectComponent.propTypes = {
   classes: PropTypes.object.isRequired,

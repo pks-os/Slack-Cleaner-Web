@@ -10,16 +10,11 @@ export function formatBytes(a, b) {
 }
 
 export function sortFiles(files, size, date) {
-  let sizeValue;
-  if (size === 'largest') {
-    sizeValue = '!size';
-  } else if (size === 'smallest') {
-    sizeValue = 'size';
-  } else {
-    sizeValue = '';
-  }
 
-  const dateValue = date === 'oldest' ? 'created' : '!created';
+  const sizeValueSmallest = (size === 'smallest') ? 'size' : '';
+  const sizeValue = (size === 'largest') ? '!size' : sizeValueSmallest;
+  const dateValue = (date === 'oldest') ? 'created' : '!created';
   const criteria = [sizeValue, dateValue];
+
   return multisort(files, criteria);
 }
