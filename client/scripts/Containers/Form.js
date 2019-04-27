@@ -120,9 +120,11 @@ class Form extends Component {
     return (
       <div className="Form">
 
+        <LabelComponent title={'Sort by'}/>
+
         <div className="Form__Field">
           <SelectComponent
-            labelName={'Sort By Date'}
+            labelName={'Date'}
             options={this.props.sortByDateValues}
             value={this.props.sortByDateValue}
             onChange={this.handleSortByDateSelect}
@@ -132,7 +134,7 @@ class Form extends Component {
         <div className="Form__Field">
           <SelectComponent
             emptyName={'None'}
-            labelName={'Sort By Size'}
+            labelName={'Size'}
             options={this.props.sortBySizeValues}
             value={this.props.sortBySizeValue}
             onChange={this.handleSortBySizeSelect}
@@ -140,6 +142,8 @@ class Form extends Component {
         </div>
 
         <hr/>
+
+        <LabelComponent title={'Filter by'}/>
 
         <div className="Form__Field">{this.renderChannelSelect()}</div>
 
