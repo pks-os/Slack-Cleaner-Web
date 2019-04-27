@@ -19,7 +19,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { formatBytes } from '../../utils';
+import { formatBytes, sortFiles } from '../../utils';
 // end of material UI //
 
 import '../../../styles/main.scss';
@@ -340,6 +340,8 @@ class PersistentDrawerLeft extends React.Component {
 
     const { open, getFilesFirstTime } = this.state;
 
+    const files = sortFiles(this.state.files, this.state.sortBySizeValue, this.state.sortByDateValue);
+
     return (
       <div className={classes.root}>
         <CssBaseline/>
@@ -398,7 +400,7 @@ class PersistentDrawerLeft extends React.Component {
             hasFiles={this.state.hasFiles}
             teamName={this.props.teamName}
             paging={this.state.paging}
-            files={this.state.files}
+            files={files}
             open={this.state.open}
             size={this.state.size}
             daate={this.state.date}
