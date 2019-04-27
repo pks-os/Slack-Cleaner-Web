@@ -6,6 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 // end of material UI
 
 const styles = (theme) => ({
@@ -30,6 +32,7 @@ const styles = (theme) => ({
 const SelectComponent = ({
   classes,
   value = '',
+  labelName,
   isChannel = false,
   emptyName = '',
   options = [],
@@ -50,17 +53,27 @@ const SelectComponent = ({
     };
   }) : [...options];
 
-  const emptyMenuItem = (emptyName !== '') ? <MenuItem className={classes.selectItem} value="">{emptyName}</MenuItem> : null;
+  const emptyMenuItem = (emptyName !== '') ?
+    <MenuItem className={classes.selectItem} value="" selected={'' === value}>{emptyName}</MenuItem> : null;
 
   return (
     <form className={classes.root} autoComplete="off">
       <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor="outlined-label">
+          {labelName}
+        </InputLabel>
         <Select
           value={value}
-          displayEmpty
           name="select"
           className={classes.select}
           onChange={handleEvent}
+          input={
+            <OutlinedInput
+              labelWidth={100}
+              name="label"
+              id="outlined-label"
+            />
+          }
         >
           {emptyMenuItem}
           {mutatedOptions.map((option) => (
@@ -76,6 +89,7 @@ const SelectComponent = ({
 
 SelectComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  labelName: PropTypes.string.isRequired,
   value: PropTypes.string,
   options: PropTypes.array,
   isChannel: PropTypes.bool,
