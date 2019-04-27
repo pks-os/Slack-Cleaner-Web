@@ -84,9 +84,9 @@ class Form extends Component {
     if (channels.length) {
       return (
         <div>
-          <LabelComponent title={'Channel'}/>
           <SelectComponent
             isChannel
+            labelName={'Channels'}
             emptyName={'All Channels'}
             options={channels}
             value={this.state.channel}
@@ -120,9 +120,11 @@ class Form extends Component {
     return (
       <div className="Form">
 
+        <LabelComponent title={'Sort by'}/>
+
         <div className="Form__Field">
-          <LabelComponent title={'Sort By Date'}/>
           <SelectComponent
+            labelName={'Date'}
             options={this.props.sortByDateValues}
             value={this.props.sortByDateValue}
             onChange={this.handleSortByDateSelect}
@@ -130,9 +132,9 @@ class Form extends Component {
         </div>
 
         <div className="Form__Field">
-          <LabelComponent title={'Sort By Size'}/>
           <SelectComponent
             emptyName={'None'}
+            labelName={'Size'}
             options={this.props.sortBySizeValues}
             value={this.props.sortBySizeValue}
             onChange={this.handleSortBySizeSelect}
@@ -140,6 +142,8 @@ class Form extends Component {
         </div>
 
         <hr/>
+
+        <LabelComponent title={'Filter by'}/>
 
         <div className="Form__Field">{this.renderChannelSelect()}</div>
 
