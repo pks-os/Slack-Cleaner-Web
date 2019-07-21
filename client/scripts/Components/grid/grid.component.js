@@ -5,6 +5,7 @@ import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Count from '../Count';
 import CardComponent from '../card/card.component';
 import nothingFound from '../../../images/nothingFound.png';
+import loadingGif from '../../../images/loadingGif.gif';
 
 // begin of material ui //
 import { withStyles } from '@material-ui/core/styles';
@@ -27,12 +28,24 @@ const styles = (theme) => ({
   pagingAction: {
     margin: '5px',
   },
+  fullWidth: {
+    width: '100%',
+  },
+  loading: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '50px',
+    height: '50px',
+    marginTop: '20%'
+  },
 });
 
 const GridComponent = ({
   classes,
   isLoggedIn,
   hasFiles,
+  filesLoading,
   teamName,
   paging,
   files,
@@ -65,7 +78,9 @@ const GridComponent = ({
         <span className="FileWrapper__paging-count">{paging.page}</span>
 
         <IconButton>
-          <ChevronRight className={classes.pagingAction} disabled={paging.page === paging.pages} onClick={onPageIncrement}
+          <ChevronRight
+            className={classes.pagingAction} disabled={paging.page === paging.pages}
+            onClick={onPageIncrement}
           />
         </IconButton>
 
@@ -75,13 +90,13 @@ const GridComponent = ({
 
   const renderFiles = () => {
 
-    if (!files.length) {
-      return <img src={nothingFound} alt="Nothing Found"/>;
+    if (filesLoading) {
+      return <img src={loadingGif} className={classes.loading} alt="Loading"/>;
     } else {
 
       const columnsSize = calculateColumnsNumber(window.innerWidth);
 
-      return files.map((file) => (
+      return files.length ? files.map((file) => (
         <Grid item xs={columnsSize} key={file.id}>
           <Paper className={classes.paper}>
             <CardComponent
@@ -90,7 +105,7 @@ const GridComponent = ({
             />
           </Paper>
         </Grid>
-      ));
+      )) : <img src={nothingFound} className={classes.fullWidth} alt="Nothing Found"/>;
     }
   };
 
@@ -148,6 +163,7 @@ GridComponent.propTypes = {
   teamName: PropTypes.string,
   paging: PropTypes.object,
   files: PropTypes.array,
+  filesLoading: PropTypes.bool,
   size: PropTypes.string,
   date: PropTypes.string,
   onDeleteFile: PropTypes.func,

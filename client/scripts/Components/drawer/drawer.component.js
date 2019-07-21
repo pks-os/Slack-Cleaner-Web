@@ -68,6 +68,7 @@ const styles = (theme) => ({
 
 const INITIAL_STATE = {
   files: [],
+  filesLoading: true,
   deletedSize: 0,
   paging: {
     total: 0,
@@ -184,6 +185,8 @@ class PersistentDrawerLeft extends React.Component {
       return;
     }
 
+    this.setState({ filesLoading: true });
+
     try {
       const res = await axios.get(`${ENDPOINT}files.list`, {
         params: {
@@ -224,6 +227,7 @@ class PersistentDrawerLeft extends React.Component {
         hasRun: true,
         paging: res.data.paging,
         rate_count: this.state.rate_count + 1,
+        filesLoading: false
       });
     } catch (err) {
       this.props.updateError(
@@ -234,6 +238,7 @@ class PersistentDrawerLeft extends React.Component {
         files: [],
         paging: INITIAL_STATE.paging,
         rate_count: this.state.rate_count + 1,
+        filesLoading: false
       });
     }
   }, 100);
@@ -401,6 +406,7 @@ class PersistentDrawerLeft extends React.Component {
             teamName={this.props.teamName}
             paging={this.state.paging}
             files={files}
+            filesLoading={this.state.filesLoading}
             open={this.state.open}
             size={this.state.size}
             daate={this.state.date}

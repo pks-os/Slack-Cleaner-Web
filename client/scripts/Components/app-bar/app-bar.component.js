@@ -23,7 +23,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = (theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 0,
   },
   grow: {
     flexGrow: 1,
@@ -65,6 +65,7 @@ const styles = (theme) => ({
   },
   contents: {
     display: 'contents',
+    float: 'right',
   },
   loginButton: {
     height: '48px',
@@ -73,6 +74,9 @@ const styles = (theme) => ({
   navbar: {
     display: smallScreen ? 'none' : 'block',
   },
+  floatRight: {
+    float: 'right'
+  }
 });
 
 const AppBarComponent = ({
@@ -119,6 +123,7 @@ const AppBarComponent = ({
         <ButtonComponent
           avatar={avatar}
           name={name}
+          floatToRight
           title={'Logout'}
           icon={'Person'}
           href="api/logout"
