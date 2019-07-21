@@ -27,7 +27,7 @@ module.exports = {
     {
       question: 'Is this made by Slack?',
       answer:
-        'Nope, it\'s made by <a href="http://ngquad.com" target="_blank">Drew Minns</a>, a developer from Toronto who would LOVE to work for Slack ;).',
+        'Nope, it\'s made by <a href="http://ngquad.com" target="_blank">Miroslav Maksimovic</a>, a developer from Foca who would LOVE to work for Slack ;).',
     },
     {
       question:

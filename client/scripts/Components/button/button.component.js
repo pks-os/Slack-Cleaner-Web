@@ -12,6 +12,8 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 // end of material ui//
 
+const smallScreen = window.innerWidth < 800;
+
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -25,6 +27,10 @@ const styles = theme => ({
     width: '25px',
     marginRight: '30px',
   },
+  floatRight: {
+    float: 'right',
+    margin: smallScreen ? '15px 5px 0 0' : ''
+  }
 });
 
 function ButtonComponent(props) {
@@ -32,6 +38,7 @@ function ButtonComponent(props) {
     title,
     icon,
     disabled = false,
+    floatToRight,
     color,
     avatar,
     name,
@@ -39,6 +46,7 @@ function ButtonComponent(props) {
     },
     classes,
   } = props;
+
 
 
   const renderIconComponent = () => {
@@ -79,9 +87,8 @@ function ButtonComponent(props) {
     return (<img className={classes.avatar} src={avatar} alt={name}/>);
   };
 
-
   return (
-    <Button variant="contained" color={color} className={classes.button} disabled={disabled} onClick={onClick}>
+    <Button variant="contained" color={color} className={`${classes.button} + ${(floatToRight ? classes.floatRight : '')}`} disabled={disabled} onClick={onClick}>
       {avatar ? renderAvatar() : renderIconComponent()}
       {title}
     </Button>
@@ -92,6 +99,7 @@ ButtonComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  floatToRight: PropTypes.bool,
   icon: PropTypes.string,
   avatar: PropTypes.string,
   name: PropTypes.string,
