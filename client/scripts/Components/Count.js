@@ -31,15 +31,11 @@ const Count = ({ data = [], teamName, total }) => {
 
       {total} {plural}{' '}
 
-      <Tooltip title={'Equals'}>
-        <IconButton><Equalizer/></IconButton>
-      </Tooltip>
-
-      {formatBytes(fileSize)}{' '}
-
       <Tooltip title={'Storage'}>
         <IconButton><Storage/></IconButton>
       </Tooltip>
+
+      {formatBytes(fileSize)}{' '}
 
     </div>
   );
