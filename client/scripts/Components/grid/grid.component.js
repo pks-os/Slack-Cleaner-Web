@@ -5,7 +5,7 @@ import { calculateColumnsNumber } from '../../utils/cardSize.util';
 import Count from '../Count';
 import CardComponent from '../card/card.component';
 import nothingFound from '../../../images/nothingFound.png';
-import loadingGif from '../../../images/loadingGif.gif';
+import GridLoaderComponent from '../content-loaders/grid-loader.component';
 
 // begin of material ui //
 import { withStyles } from '@material-ui/core/styles';
@@ -25,6 +25,18 @@ const styles = (theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  loadingPaper: {
+    height: '400px',
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  loadingInfoPaper: {
+    height: '80px',
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
   pagingAction: {
     margin: '5px',
   },
@@ -37,7 +49,7 @@ const styles = (theme) => ({
     marginRight: 'auto',
     width: '50px',
     height: '50px',
-    marginTop: '20%'
+    marginTop: '20%',
   },
 });
 
@@ -90,11 +102,19 @@ const GridComponent = ({
 
   const renderFiles = () => {
 
-    if (filesLoading) {
-      return <img src={loadingGif} className={classes.loading} alt="Loading"/>;
-    } else {
+    const columnsSize = calculateColumnsNumber(window.innerWidth);
 
-      const columnsSize = calculateColumnsNumber(window.innerWidth);
+    if (filesLoading) {
+
+      const loadingFiles = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5];
+
+      return loadingFiles.map((loadingFile) => (<Grid item xs={columnsSize} key={loadingFile.id}>
+        <Paper className={classes.loadingPaper}>
+          <GridLoaderComponent height={370}/>
+        </Paper>
+      </Grid>));
+
+    } else {
 
       return files.length ? files.map((file) => (
         <Grid item xs={columnsSize} key={file.id}>
@@ -112,19 +132,26 @@ const GridComponent = ({
   const renderInfo = () => {
 
     if (!files.length) {
-      return null;
+      return (
+        <Grid item xs={12}>
+          <Paper className={classes.loadingInfoPaper}>
+            <GridLoaderComponent height={80}/>
+          </Paper>
+        </Grid>
+      );
+    } else {
+      return (
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Count
+              data={files}
+              total={paging.total}
+              teamName={teamName}
+            />
+          </Paper>
+        </Grid>
+      );
     }
-    return (
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <Count
-            data={files}
-            total={paging.total}
-            teamName={teamName}
-          />
-        </Paper>
-      </Grid>
-    );
   };
 
   const renderPagination = () => {

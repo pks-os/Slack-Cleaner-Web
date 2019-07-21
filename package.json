@@ -76,6 +76,7 @@
     "prop-types": "^15.6.1",
     "raven-js": "^3.24.1",
     "react": "^16.3.0",
+    "react-content-loader": "^4.2.2",
     "react-dates": "^16.4.0",
     "react-dom": "^16.3.0",
     "react-spinners": "^0.5.4",
