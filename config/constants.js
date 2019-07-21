@@ -31,14 +31,14 @@ module.exports = {
     },
     {
       question:
-        "In the other versions, there was a bulk delete. Where'd that go?",
+        "Bulk delete. How that works?",
       answer:
         "The API method to delete a file requires one argument, the ID of the file to delete which means that the bulk deletion made multiple calls to the API at the same time. Slack has introduced <a href='https://api.slack.com/docs/rate-limits#tiers'>rate limits</a> on the number of times a method can be called per minute. While yes, it allows burts, if there was an error related to the rate limit, it's hard to communicate why to users. Rather than having errors be caused by people with loads of files, introducing a queuing system, or straight up taking the app down, I added in some features some people had been looking for.",
     },
     {
-      question: 'Is this thing safe?',
+      question: 'Is this app safe?',
       answer:
-        'I store nothing. The only information needed to log you in is stored is stored as a unique session. There are no databases, no caching (except on your own machine), anything.',
+        'We store nothing. The only information needed to log you in is stored is stored as a unique session. There are no databases, no caching (except on your own machine), anything.',
     },
     {
       question: 'I have a feature / idea / request / job offer / how is this built?',

@@ -101,6 +101,7 @@ const INITIAL_STATE = {
   ],
   sortByDateValue: 'newest',
   sortBySizeValue: '',
+  bulkStart: false
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -217,7 +218,7 @@ class PersistentDrawerLeft extends React.Component {
           hasRun: true,
           currentPage: 1,
           rate_count: this.state.rate_count + 1,
-          filesLoading: false
+          filesLoading: false,
         });
         return;
       }
@@ -226,7 +227,10 @@ class PersistentDrawerLeft extends React.Component {
         files: res.data.files,
         hasFiles: res.data.files.length > 0,
         hasRun: true,
-        paging: res.data.paging,
+        paging: {
+          ...res.data.paging,
+          total: res.data.files.length,
+        },
         rate_count: this.state.rate_count + 1,
         filesLoading: false,
       });
@@ -287,6 +291,10 @@ class PersistentDrawerLeft extends React.Component {
         files: [],
         error: INITIAL_STATE.error,
         deletedSize: fileSize,
+        paging: {
+          ...this.state.paging,
+          total: 0
+        },
       });
       return;
     }
@@ -295,6 +303,10 @@ class PersistentDrawerLeft extends React.Component {
       files: filteredFiles,
       error: INITIAL_STATE.error,
       deletedSize: fileSize,
+      paging: {
+        ...this.state.paging,
+        total: this.state.paging.total - 1,
+      },
     });
 
     this.onSendNotification(`Deleted file with id: ${fileId}, you just saved ${formatBytes(fileSize)}`, 'success');
@@ -324,6 +336,8 @@ class PersistentDrawerLeft extends React.Component {
   onSortBySizeValueChange = (value) => {
     this.setState({ sortBySizeValue: value, filesLoading: true });
     this.clearFilesLoading();
+
+    this.bulkDelete();
   };
 
   clearFilesLoading = () => {
@@ -336,6 +350,32 @@ class PersistentDrawerLeft extends React.Component {
   Logout = (e) => {
     e.preventDefault();
     window.location.replace('api/logout');
+  };
+
+  bulkDeleteStart = () => {
+
+    this.setState({ bulkStart: true });
+    setTimeout(() => {
+
+      const ids = this.state.files.map((file) => file.id);
+      let interval = 1000;
+
+      if (ids.length === 0) {
+        this.setState({ bulkStart: false });
+      }
+
+      ids.forEach((id) => {
+        interval += 3000;
+
+        if(!this.state.bulkStart) {
+          return;
+        }
+
+        setTimeout(() => {
+          this.callDeleteFile(id);
+        }, interval);
+      });
+    });
   };
 
   render() {
@@ -421,6 +461,8 @@ class PersistentDrawerLeft extends React.Component {
             size={this.state.size}
             daate={this.state.date}
             onDeleteFile={this.callDeleteFile}
+            bulkStart={this.state.bulkStart}
+            bulkDeleteStart={this.bulkDeleteStart}
             handlePageUpdate={this.handlePageUpdate}
             updateError={updateError}
           />
@@ -442,6 +484,7 @@ PersistentDrawerLeft.propTypes = {
   channels: PropTypes.array,
   userId: PropTypes.string,
   teamName: PropTypes.string,
+  bulkStart: PropTypes.bool,
   getFilesFirstTime: PropTypes.bool,
   updateError: PropTypes.func,
   sendNotification: PropTypes.func,

@@ -5,6 +5,7 @@ import { formatBytes } from '../../utils';
 // begin of material UI
 import FileCopy from '@material-ui/icons/FileCopy';
 import Storage from '@material-ui/icons/Storage';
+import DeleteSweep from '@material-ui/icons/DeleteSweep';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 // end of material UI
