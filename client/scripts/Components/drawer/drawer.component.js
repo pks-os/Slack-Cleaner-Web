@@ -124,14 +124,10 @@ class PersistentDrawerLeft extends React.Component {
   };
 
   onDateChange = (data) => {
-
     this.setState({
       startDate: data.startDate,
       endDate: data.endDate,
-      filesLoading: false,
     });
-
-    this.clearFilesLoading();
   };
 
   getFiles = (from = null, to = null, types = null, channel = null) => {
@@ -221,6 +217,7 @@ class PersistentDrawerLeft extends React.Component {
           hasRun: true,
           currentPage: 1,
           rate_count: this.state.rate_count + 1,
+          filesLoading: false
         });
         return;
       }
@@ -325,18 +322,14 @@ class PersistentDrawerLeft extends React.Component {
   };
 
   onSortBySizeValueChange = (value) => {
-
-    console.warn({ sortBySizeValue: value, filesLoading: true });
     this.setState({ sortBySizeValue: value, filesLoading: true });
-    console.warn(this.state);
-
     this.clearFilesLoading();
   };
 
-  clearFilesLoading = (value) => {
+  clearFilesLoading = () => {
 
     setTimeout(() => {
-      this.setState({ ...this.state, sortBySizeValue: value, filesLoading: false });
+      this.setState({ ...this.state, filesLoading: false });
     }, 100);
   };
 

@@ -131,7 +131,7 @@ const GridComponent = ({
 
   const renderInfo = () => {
 
-    if (!files.length) {
+    if (filesLoading) {
       return (
         <Grid item xs={12}>
           <Paper className={classes.loadingInfoPaper}>
@@ -139,7 +139,7 @@ const GridComponent = ({
           </Paper>
         </Grid>
       );
-    } else {
+    } else if (files.length){
       return (
         <Grid item xs={12}>
           <Paper className={classes.paper}>
