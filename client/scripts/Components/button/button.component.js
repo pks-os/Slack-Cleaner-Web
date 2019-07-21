@@ -14,7 +14,7 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 
 const smallScreen = window.innerWidth < 800;
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
     margin: theme.spacing.unit,
   },

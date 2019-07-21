@@ -25,7 +25,7 @@ const GridLoaderComponent = ({ classes, height }) => {
 };
 
 GridLoaderComponent.propTypes = {
-  height: PropTypes.string,
+  height: PropTypes.number,
 };
 
 export default withStyles(styles)(GridLoaderComponent);

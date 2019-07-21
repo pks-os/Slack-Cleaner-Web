@@ -14,7 +14,7 @@ const isAfterToday = (day) => {
   return moment(day).isSameOrAfter(moment());
 };
 
-export default class DateFields extends Component {
+export default class DatePickerComponent extends Component {
   static propTypes = {
     onChange: PropTypes.func,
     startDate: PropTypes.object,

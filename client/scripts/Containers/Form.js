@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ButtonComponent from '../Components/button/button.component';
-import DateFields from '../Components/DateFields';
+import DatePickerComponent from '../Components/date/datepicker.component';
 import SelectComponent from '../Components/select/select.component';
 import LabelComponent from '../Components/label/label.component';
 import CheckboxComponent from '../Components/checkbox/checkbox.component';
@@ -149,7 +149,7 @@ class Form extends Component {
 
         <div className="Form__Field">
           <LabelComponent title={'Date Range'}/>
-          <DateFields
+          <DatePickerComponent
             onChange={this.updateDate}
             startDate={this.props.startDate}
             endDate={this.props.endDate}
