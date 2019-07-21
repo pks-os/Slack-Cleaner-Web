@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
+import BulkDeleteComponent from '../bulk-delete/bulk-delete.component';
 // end of material ui //
 
 const styles = (theme) => ({
@@ -63,11 +64,13 @@ const GridComponent = ({
   files,
   size,
   date,
-  onDeleteFile = () => {
-  },
-  handlePageUpdate = () => {
-  },
+  bulkStart,
+  onDeleteFile = () => {},
+  handlePageUpdate = () => {},
+  bulkDeleteStart = () => {},
 }) => {
+
+  const smallScreen = window.innerWidth < 800;
 
   const onPageDecrement = (val) => {
     if (val <= 1) return;
@@ -139,17 +142,24 @@ const GridComponent = ({
           </Paper>
         </Grid>
       );
-    } else if (files.length){
+    } else if (files.length) {
       return (
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <CountComponent
-              data={files}
-              total={paging.total}
-              teamName={teamName}
-            />
-          </Paper>
-        </Grid>
+        <Fragment>
+          <Grid item xs={ !smallScreen ? 8 : 12}>
+            <Paper className={classes.paper}>
+              <CountComponent
+                data={files}
+                total={paging.total}
+                teamName={teamName}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={!smallScreen ? 4 : 12}>
+            <Paper className={classes.paper}>
+              <BulkDeleteComponent bulkStart={bulkStart} bulkDeleteStart={bulkDeleteStart}/>
+            </Paper>
+          </Grid>
+        </Fragment>
       );
     }
   };
@@ -193,8 +203,10 @@ GridComponent.propTypes = {
   filesLoading: PropTypes.bool,
   size: PropTypes.string,
   date: PropTypes.string,
+  bulkStart: PropTypes.bool,
   onDeleteFile: PropTypes.func,
   handlePageUpdate: PropTypes.func,
+  bulkDeleteStart: PropTypes.func,
 };
 
 export default withStyles(styles)(GridComponent);
