@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
-import Count from '../Count';
+import CountComponent from '../count/count.component';
 import CardComponent from '../card/card.component';
 import nothingFound from '../../../images/nothingFound.png';
 import GridLoaderComponent from '../content-loaders/grid-loader.component';
@@ -143,7 +143,7 @@ const GridComponent = ({
       return (
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Count
+            <CountComponent
               data={files}
               total={paging.total}
               teamName={teamName}
