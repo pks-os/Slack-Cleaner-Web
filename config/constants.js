@@ -27,7 +27,7 @@ module.exports = {
     {
       question: 'Is this made by Slack?',
       answer:
-        'Nope, it\'s made by <a href="http://ngquad.com" target="_blank">Miroslav Maksimovic</a>, a developer from Foca who would LOVE to work for Slack ;).',
+        'Nope, it\'s made by <a href="https://www.linkedin.com/in/miki95" target="_blank">Miroslav Maksimovic</a>, a dreamer who has some groundbreaking ideas and making them live :D',
     },
     {
       question:
@@ -41,9 +41,9 @@ module.exports = {
         'I store nothing. The only information needed to log you in is stored is stored as a unique session. There are no databases, no caching (except on your own machine), anything.',
     },
     {
-      question: 'I have a feature/idea/request/job offer/how is this built?',
+      question: 'I have a feature / idea / request / job offer / how is this built?',
       answer:
-        'This entire product is open source. Feel free to poke around the repo and add some PR\'s <a href="https://github.com/ngquad/slackcleaner" target="_blank">here</a>',
+        'This entire product is open source. Feel free to poke around the repo and add some PR\'s <a href="https://github.com/ngQuad/Slack-Cleaner-Web" target="_blank">here</a>',
     },
   ],
 };
