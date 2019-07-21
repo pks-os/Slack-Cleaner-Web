@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { calculateColumnsNumber } from '../../utils/cardSize.util';
-import Count from '../Count';
+import CountComponent from '../count/count.component';
 import CardComponent from '../card/card.component';
 import nothingFound from '../../../images/nothingFound.png';
 import GridLoaderComponent from '../content-loaders/grid-loader.component';
@@ -106,9 +106,9 @@ const GridComponent = ({
 
     if (filesLoading) {
 
-      const loadingFiles = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5];
+      const loadingFiles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 
-      return loadingFiles.map((loadingFile) => (<Grid item xs={columnsSize} key={loadingFile.id}>
+      return loadingFiles.map((loadingFile) => (<Grid item xs={columnsSize} key={loadingFile}>
         <Paper className={classes.loadingPaper}>
           <GridLoaderComponent height={370}/>
         </Paper>
@@ -131,7 +131,7 @@ const GridComponent = ({
 
   const renderInfo = () => {
 
-    if (!files.length) {
+    if (filesLoading) {
       return (
         <Grid item xs={12}>
           <Paper className={classes.loadingInfoPaper}>
@@ -139,11 +139,11 @@ const GridComponent = ({
           </Paper>
         </Grid>
       );
-    } else {
+    } else if (files.length){
       return (
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Count
+            <CountComponent
               data={files}
               total={paging.total}
               teamName={teamName}

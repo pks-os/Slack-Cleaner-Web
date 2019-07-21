@@ -217,6 +217,7 @@ class PersistentDrawerLeft extends React.Component {
           hasRun: true,
           currentPage: 1,
           rate_count: this.state.rate_count + 1,
+          filesLoading: false
         });
         return;
       }
@@ -227,7 +228,7 @@ class PersistentDrawerLeft extends React.Component {
         hasRun: true,
         paging: res.data.paging,
         rate_count: this.state.rate_count + 1,
-        filesLoading: false
+        filesLoading: false,
       });
     } catch (err) {
       this.props.updateError(
@@ -238,7 +239,7 @@ class PersistentDrawerLeft extends React.Component {
         files: [],
         paging: INITIAL_STATE.paging,
         rate_count: this.state.rate_count + 1,
-        filesLoading: false
+        filesLoading: false,
       });
     }
   }, 100);
@@ -316,11 +317,20 @@ class PersistentDrawerLeft extends React.Component {
   };
 
   onSortByDateValueChange = (value) => {
-    this.setState({ sortByDateValue: value });
+    this.setState({ sortByDateValue: value, filesLoading: true });
+    this.clearFilesLoading();
   };
 
   onSortBySizeValueChange = (value) => {
-    this.setState({ sortBySizeValue: value });
+    this.setState({ sortBySizeValue: value, filesLoading: true });
+    this.clearFilesLoading();
+  };
+
+  clearFilesLoading = () => {
+
+    setTimeout(() => {
+      this.setState({ ...this.state, filesLoading: false });
+    }, 100);
   };
 
   Logout = (e) => {
