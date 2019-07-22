@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Delete from '@material-ui/icons/Delete';
@@ -26,6 +25,9 @@ import moment from 'moment';
 import { formatBytes } from '../../utils';
 import { renderImage } from '../../utils/render.util';
 import { detectColor, detectFileType } from '../../utils/fileType.util';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 const styles = (theme) => ({
   card: {
@@ -108,7 +110,13 @@ const CardComponent = ({
         }
         title={shortFileName}
       />
-      <CardMedia className={classes.media} image={renderImage(details)} title={shortFileName}/>
+      <LazyLoadImage
+        alt={shortFileName}
+        height={250}
+        width={200}
+        effect="blur"
+        src={renderImage(details)}
+      />
       <CardActions className={classes.actions} disableActionSpacing>
 
         <Tooltip title={fileSize}>

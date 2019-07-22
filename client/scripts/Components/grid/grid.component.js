@@ -86,17 +86,14 @@ const GridComponent = ({
 
     return (
       <div className="FileWrapper__paging">
-        <IconButton>
-          <ChevronLeft className={classes.pagingAction} disabled={paging.page === 1} onClick={onPageDecrement}/>
+        <IconButton onClick={onPageDecrement}>
+          <ChevronLeft className={classes.pagingAction} disabled={paging.page === 1}/>
         </IconButton>
 
         <span className="FileWrapper__paging-count">{paging.page}</span>
 
-        <IconButton>
-          <ChevronRight
-            className={classes.pagingAction} disabled={paging.page === paging.pages}
-            onClick={onPageIncrement}
-          />
+        <IconButton onClick={onPageIncrement}>
+          <ChevronRight className={classes.pagingAction} disabled={paging.page === paging.pages}/>
         </IconButton>
 
       </div>
