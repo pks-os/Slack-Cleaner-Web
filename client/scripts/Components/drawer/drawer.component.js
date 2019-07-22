@@ -101,7 +101,7 @@ const INITIAL_STATE = {
   ],
   sortByDateValue: 'newest',
   sortBySizeValue: '',
-  bulkStart: false
+  bulkStart: false,
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -359,15 +359,27 @@ class PersistentDrawerLeft extends React.Component {
         this.setState({ bulkStart: false });
       }
 
-      ids.forEach((id) => {
+      ids.forEach((id, key) => {
         interval += 3000;
 
-        if(!this.state.bulkStart) {
+        if (!this.state.bulkStart) {
           return;
         }
 
+
         setTimeout(() => {
+
           this.callDeleteFile(id);
+
+          const pages = 5;
+          const page = this.state.paging.page;
+          const lastPage = ids.length - 1;
+
+          if (key === lastPage && page <= pages && pages > 1) {
+
+            this.handlePageUpdate(page + 1);
+            this.bulkDeleteStart();
+          }
         }, interval);
       });
     });
