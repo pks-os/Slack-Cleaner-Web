@@ -33,7 +33,7 @@ module.exports = {
       question:
         "Bulk delete. How that works?",
       answer:
-        "The API method to delete a file requires one argument, the ID of the file to delete which means that the bulk deletion made multiple calls to the API at the same time. Slack has introduced <a href='https://api.slack.com/docs/rate-limits#tiers'>rate limits</a> on the number of times a method can be called per minute. While yes, it allows burts, if there was an error related to the rate limit, it's hard to communicate why to users. Rather than having errors be caused by people with loads of files, introducing a queuing system, or straight up taking the app down, I added in some features some people had been looking for.",
+        "The API method to delete a file requires one argument, the ID of the file to delete which means that the bulk deletion made multiple calls to the API at the same time. Slack has introduced <a href='https://api.slack.com/docs/rate-limits#tiers'>rate limits</a> on the number of times a method can be called per minute. While yes, it allows burts, if there was an error related to the rate limit, it's hard to communicate why to users. Rather than having errors be caused by people with loads of files, introducing a queuing system, or straight up taking the app down, We've added in some features some people had been looking for. Just press play and leave the tab open and let the app do the work for you. ( We need to delete file by file every 2-3 seconds because of slack api quote. ) Enojy, :D",
     },
     {
       question: 'Is this app safe?',
