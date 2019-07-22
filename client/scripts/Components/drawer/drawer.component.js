@@ -231,6 +231,11 @@ class PersistentDrawerLeft extends React.Component {
         rate_count: this.state.rate_count + 1,
         filesLoading: false,
       });
+
+      if (this.state.bulkStart === true) {
+        this.bulkDeleteStart();
+      }
+
     } catch (err) {
       this.props.updateError(
         'Slack looks like it is down :(',
@@ -353,14 +358,14 @@ class PersistentDrawerLeft extends React.Component {
     setTimeout(() => {
 
       const ids = this.state.files.map((file) => file.id);
-      let interval = 1000;
+      let interval = 1;
 
       if (ids.length === 0) {
         this.setState({ bulkStart: false });
       }
 
       ids.forEach((id, key) => {
-        interval += 3000;
+        interval += 3;
 
         if (!this.state.bulkStart) {
           return;
@@ -371,14 +376,18 @@ class PersistentDrawerLeft extends React.Component {
 
           this.callDeleteFile(id);
 
-          const pages = 5;
+          const pages = this.state.paging.pages;
           const page = this.state.paging.page;
           const lastPage = ids.length - 1;
 
-          if (key === lastPage && page <= pages && pages > 1) {
+          if (key === lastPage) {
+            this.setState({ bulkStart: false });
+          }
 
-            this.handlePageUpdate(page + 1);
-            this.bulkDeleteStart();
+          if (key === lastPage && page < pages && pages > 1) {
+
+            this.setState({ bulkStart: true });
+            this.handlePageUpdate(Number(page) + 1);
           }
         }, interval);
       });
