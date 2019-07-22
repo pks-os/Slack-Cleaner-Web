@@ -336,8 +336,6 @@ class PersistentDrawerLeft extends React.Component {
   onSortBySizeValueChange = (value) => {
     this.setState({ sortBySizeValue: value, filesLoading: true });
     this.clearFilesLoading();
-
-    this.bulkDelete();
   };
 
   clearFilesLoading = () => {
