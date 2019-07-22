@@ -355,22 +355,22 @@ class PersistentDrawerLeft extends React.Component {
   bulkDeleteStart = () => {
 
     this.setState({ bulkStart: true });
+
     setTimeout(() => {
 
       const ids = this.state.files.map((file) => file.id);
-      let interval = 1;
+      let interval = 1000;
 
       if (ids.length === 0) {
         this.setState({ bulkStart: false });
       }
 
       ids.forEach((id, key) => {
-        interval += 3;
+        interval += 3000;
 
         if (!this.state.bulkStart) {
           return;
         }
-
 
         setTimeout(() => {
 
