@@ -227,10 +227,7 @@ class PersistentDrawerLeft extends React.Component {
         files: res.data.files,
         hasFiles: res.data.files.length > 0,
         hasRun: true,
-        paging: {
-          ...res.data.paging,
-          total: res.data.files.length,
-        },
+        paging: res.data.paging,
         rate_count: this.state.rate_count + 1,
         filesLoading: false,
       });
@@ -293,7 +290,7 @@ class PersistentDrawerLeft extends React.Component {
         deletedSize: fileSize,
         paging: {
           ...this.state.paging,
-          total: 0
+          total: 0,
         },
       });
       return;

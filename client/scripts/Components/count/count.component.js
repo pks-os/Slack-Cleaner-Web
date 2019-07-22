@@ -19,7 +19,7 @@ const CountComponent = ({ data = [], total }) => {
   return (
     <div className="Count">
 
-      <Tooltip title={'Files'}>
+      <Tooltip title={'Total Files'}>
         <IconButton><FileCopy/></IconButton>
       </Tooltip>
 
