@@ -101,7 +101,7 @@ const INITIAL_STATE = {
   ],
   sortByDateValue: 'newest',
   sortBySizeValue: '',
-  bulkStart: false
+  bulkStart: false,
 };
 
 class PersistentDrawerLeft extends React.Component {
@@ -180,7 +180,6 @@ class PersistentDrawerLeft extends React.Component {
     this.setState({ rate_time: false, rate_count: 0 });
   };
 
-  // ### TODO Refactor the shit out of this
   callGetFiles = throttle(async () => {
     if (await !this.startTimer()) {
       return;
@@ -227,13 +226,15 @@ class PersistentDrawerLeft extends React.Component {
         files: res.data.files,
         hasFiles: res.data.files.length > 0,
         hasRun: true,
-        paging: {
-          ...res.data.paging,
-          total: res.data.files.length,
-        },
+        paging: res.data.paging,
         rate_count: this.state.rate_count + 1,
         filesLoading: false,
       });
+
+      if (this.state.bulkStart) {
+        this.bulkDeleteStart();
+      }
+
     } catch (err) {
       this.props.updateError(
         'Slack looks like it is down :(',
@@ -293,7 +294,7 @@ class PersistentDrawerLeft extends React.Component {
         deletedSize: fileSize,
         paging: {
           ...this.state.paging,
-          total: 0
+          total: 0,
         },
       });
       return;
@@ -336,8 +337,6 @@ class PersistentDrawerLeft extends React.Component {
   onSortBySizeValueChange = (value) => {
     this.setState({ sortBySizeValue: value, filesLoading: true });
     this.clearFilesLoading();
-
-    this.bulkDelete();
   };
 
   clearFilesLoading = () => {
@@ -354,8 +353,7 @@ class PersistentDrawerLeft extends React.Component {
 
   bulkDeleteStart = () => {
 
-    this.setState({ bulkStart: true });
-    setTimeout(() => {
+    this.setState({ bulkStart: true }, () => {
 
       const ids = this.state.files.map((file) => file.id);
       let interval = 1000;
@@ -364,15 +362,30 @@ class PersistentDrawerLeft extends React.Component {
         this.setState({ bulkStart: false });
       }
 
-      ids.forEach((id) => {
+      ids.forEach((id, key) => {
         interval += 3000;
 
-        if(!this.state.bulkStart) {
-          return;
-        }
-
         setTimeout(() => {
+
+          if (!this.state.bulkStart) {
+            return;
+          }
+
           this.callDeleteFile(id);
+
+          const pages = this.state.paging.pages;
+          const page = this.state.paging.page;
+          const lastPage = ids.length - 1;
+
+          if (key === lastPage) {
+            this.setState({ bulkStart: false });
+          }
+
+          if (key === lastPage && page < pages && pages > 1) {
+
+            this.setState({ bulkStart: true });
+            this.handlePageUpdate(Number(page));
+          }
         }, interval);
       });
     });
