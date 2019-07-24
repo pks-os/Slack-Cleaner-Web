@@ -180,7 +180,6 @@ class PersistentDrawerLeft extends React.Component {
     this.setState({ rate_time: false, rate_count: 0 });
   };
 
-  // ### TODO Refactor the shit out of this
   callGetFiles = throttle(async () => {
     if (await !this.startTimer()) {
       return;
@@ -232,7 +231,7 @@ class PersistentDrawerLeft extends React.Component {
         filesLoading: false,
       });
 
-      if (this.state.bulkStart === true) {
+      if (this.state.bulkStart) {
         this.bulkDeleteStart();
       }
 
@@ -354,9 +353,7 @@ class PersistentDrawerLeft extends React.Component {
 
   bulkDeleteStart = () => {
 
-    this.setState({ bulkStart: true });
-
-    setTimeout(() => {
+    this.setState({ bulkStart: true }, () => {
 
       const ids = this.state.files.map((file) => file.id);
       let interval = 1000;
@@ -368,11 +365,11 @@ class PersistentDrawerLeft extends React.Component {
       ids.forEach((id, key) => {
         interval += 3000;
 
-        if (!this.state.bulkStart) {
-          return;
-        }
-
         setTimeout(() => {
+
+          if (!this.state.bulkStart) {
+            return;
+          }
 
           this.callDeleteFile(id);
 
@@ -387,7 +384,7 @@ class PersistentDrawerLeft extends React.Component {
           if (key === lastPage && page < pages && pages > 1) {
 
             this.setState({ bulkStart: true });
-            this.handlePageUpdate(Number(page) + 1);
+            this.handlePageUpdate(Number(page));
           }
         }, interval);
       });
