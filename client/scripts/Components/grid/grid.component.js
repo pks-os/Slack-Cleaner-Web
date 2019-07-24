@@ -42,7 +42,8 @@ const styles = (theme) => ({
     margin: '5px',
   },
   fullWidth: {
-    width: '100%',
+    width: '50%',
+    margin: 'auto'
   },
   loading: {
     display: 'block',
