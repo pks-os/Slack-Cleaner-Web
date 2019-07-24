@@ -21,7 +21,7 @@ function LoaderComponent({ classes }) {
   return (
     <Tooltip title={'Deleting'}>
       <IconButton>
-        <CircularProgress className={classes.progress} size={20 } />
+        <CircularProgress className={classes.progress} size={20} />
       </IconButton>
     </Tooltip>
   );

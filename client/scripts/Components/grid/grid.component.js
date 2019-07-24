@@ -42,7 +42,8 @@ const styles = (theme) => ({
     margin: '5px',
   },
   fullWidth: {
-    width: '100%',
+    width: '50%',
+    margin: 'auto'
   },
   loading: {
     display: 'block',
@@ -86,17 +87,14 @@ const GridComponent = ({
 
     return (
       <div className="FileWrapper__paging">
-        <IconButton>
-          <ChevronLeft className={classes.pagingAction} disabled={paging.page === 1} onClick={onPageDecrement}/>
+        <IconButton onClick={onPageDecrement} disabled={paging.page === 1}>
+          <ChevronLeft className={classes.pagingAction}/>
         </IconButton>
 
         <span className="FileWrapper__paging-count">{paging.page}</span>
 
-        <IconButton>
-          <ChevronRight
-            className={classes.pagingAction} disabled={paging.page === paging.pages}
-            onClick={onPageIncrement}
-          />
+        <IconButton onClick={onPageIncrement} disabled={paging.page === paging.pages}>
+          <ChevronRight className={classes.pagingAction}/>
         </IconButton>
 
       </div>
