@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://github.com/ngQuad/Slack-Cleaner-Web",
   "engines": {
     "node": "8.10.0"
   },
@@ -27,7 +26,7 @@
     "dev": "NODE_ENV=development nodemon index.js --ignore client",
     "asset-build": "npm run clean && NODE_ENV=production webpack-cli --config config/webpack.config.js",
     "test": "NODE_ENV=test jest",
-    "github-deploy": "gh-pages -d build",
+    "github-deploy": "gh-pages -d dist",
     "lint": "eslint server/** client/** routes/**",
     "clean": "rimraf dist"
   },
