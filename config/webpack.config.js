@@ -8,7 +8,7 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 const ISPROD = process.env.NODE_ENV === 'production';
 const PUBLIC_PATH = ISPROD
-  ? 'https://slackcleaner.surge.sh/'
+  ? 'https://slackcleaner.herokuapp.com/'
   : 'http://localhost:8081';
 
 const postcss = {
@@ -43,7 +43,7 @@ const plugins = ISPROD
         dontCacheBustUrlsMatching: /\.\w{8}\./,
         filename: 'sw.js',
         minify: true,
-        navigateFallback: 'https://slackcleaner.surge.sh/index.html',
+        navigateFallback: 'https://slackcleaner.herokuapp.com/index.html',
         staticFileGlobsIgnorePatterns: [
           /\.map$/,
           /asset-manifest\.json$/,
