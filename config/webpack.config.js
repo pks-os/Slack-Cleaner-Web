@@ -8,7 +8,7 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 const ISPROD = process.env.NODE_ENV === 'production';
 const PUBLIC_PATH = ISPROD
-  ? 'https://www.slackcleaner.com/'
+  ? 'https://ngquad.github.io/Slack-Cleaner-Web/'
   : 'http://localhost:8081';
 
 const postcss = {
@@ -43,7 +43,7 @@ const plugins = ISPROD
         dontCacheBustUrlsMatching: /\.\w{8}\./,
         filename: 'sw.js',
         minify: true,
-        navigateFallback: 'https://www.slackcleaner.com/index.html',
+        navigateFallback: 'https://ngquad.github.io/Slack-Cleaner-Web/index.html',
         staticFileGlobsIgnorePatterns: [
           /\.map$/,
           /asset-manifest\.json$/,
@@ -73,7 +73,7 @@ const ENTRY = ISPROD
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: ENTRY,
-  devtool: ISPROD ? 'cheap-module-source-map' : 'eval',
+  devtool: ISPROD ? false : 'eval',
   output: {
     filename: ISPROD ? 'main.[hash:12].min.js' : 'main.js',
     publicPath: ISPROD ? '/' : 'http://localhost:8081/assets/',
