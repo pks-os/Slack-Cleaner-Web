@@ -66,7 +66,7 @@ class ModalComponent extends React.Component {
 
               Delete files from your Slack Workspace!
               <br/>
-              Slack Deletron uses the Slack API to help you search, manage and delete files from your Slack Workspace.
+              Slack Cleaner uses the Slack API to help you search, manage and delete files from your Slack Workspace.
               <br/>
               We save nothing (seriously) and only help you get rid of stuff.
               <br/>
