@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
@@ -20,55 +20,55 @@ const postcss = {
 };
 
 const cssLoader = ISPROD
-  ? ExtractTextPlugin.extract({
-      use: ['css-loader?minimize=true', postcss, 'sass-loader'],
-    })
+  ? [{ loader: MiniCssExtractPlugin.loader }, 'css-loader', postcss, 'sass-loader']
   : ['style-loader', 'css-loader', postcss, 'sass-loader'];
 
 const plugins = ISPROD
   ? [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production'),
-          SLACK_CLIENT_ID: JSON.stringify(process.env.SLACK_CLIENT_ID),
-          SENTRY: JSON.stringify(process.env.SENTRY),
-        },
-      }),
-      new HTMLWebpackPlugin({
-        template: path.join(__dirname, './templates/prod.html'),
-      }),
-      new ExtractTextPlugin('style.[hash:12].min.css'),
-      new SWPrecacheWebpackPlugin({
-        cacheId: 'slack-Cleaner',
-        dontCacheBustUrlsMatching: /\.\w{8}\./,
-        filename: 'sw.js',
-        minify: true,
-        navigateFallback: 'https://slackcleaner.herokuapp.com/index.html',
-        staticFileGlobsIgnorePatterns: [
-          /\.map$/,
-          /asset-manifest\.json$/,
-          /\.html$/,
-        ],
-      }),
-    ]
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+        SLACK_CLIENT_ID: JSON.stringify(process.env.SLACK_CLIENT_ID),
+        SENTRY: JSON.stringify(process.env.SENTRY),
+      },
+    }),
+    new HTMLWebpackPlugin({
+      template: path.join(__dirname, './templates/prod.html'),
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.[hash:12].min.css',
+    }),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'slack-Cleaner',
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'sw.js',
+      minify: true,
+      navigateFallback: 'https://slackcleaner.herokuapp.com/index.html',
+      staticFileGlobsIgnorePatterns: [
+        /\.map$/,
+        /asset-manifest\.json$/,
+        /\.html$/,
+      ],
+    }),
+  ]
   : [
-      new HTMLWebpackPlugin({
-        template: path.join(__dirname, './templates/dev.html'),
-        alwaysWriteToDisk: true,
-      }),
-      new HtmlWebpackHarddiskPlugin({
-        outputPath: path.resolve(__dirname, '..', 'dist'),
-      }),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-    ];
+    new HTMLWebpackPlugin({
+      template: path.join(__dirname, './templates/dev.html'),
+      alwaysWriteToDisk: true,
+    }),
+    new HtmlWebpackHarddiskPlugin({
+      outputPath: path.resolve(__dirname, '..', 'dist'),
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ];
 
 const ENTRY = ISPROD
   ? './client/index.js'
   : [
-      './client/index.js',
-      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-    ];
+    './client/index.js',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+  ];
 
 module.exports = {
   mode: process.env.NODE_ENV,
