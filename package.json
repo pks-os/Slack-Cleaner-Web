@@ -87,10 +87,10 @@
     "style-loader": "^0.20.3",
     "sw-precache-webpack-plugin": "^0.11.5",
     "url-loader": "^1.0.1",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.11",
-    "webpack-dev-middleware": "^3.0.1",
-    "webpack-hot-middleware": "^2.21.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
