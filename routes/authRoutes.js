@@ -13,6 +13,7 @@ module.exports = (app) => {
           'users:read channels:read files:read files:write:user groups:read',
       },
     });
+    console.warn(urlPath);
     res.redirect(urlPath);
   });
 
@@ -26,7 +27,10 @@ module.exports = (app) => {
         },
       })
       .then((response) => {
+        debugger;
+        console.warn(response);
         if (response.data.ok) {
+          console.warn(req.session);
           req.session.slack = response.data;
           req.session.save((err) => {
             if (!err) {
