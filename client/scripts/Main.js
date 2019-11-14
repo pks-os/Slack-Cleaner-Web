@@ -227,6 +227,8 @@ export default class Main extends Component {
 
   renderLandingPage = () => {
 
+    console.warn(this.state.loggedIn);
+
     return (!this.state.loggedIn) ? (<LandingContainer openModal={this.openModal}/>) :
       (<Fragment>
 

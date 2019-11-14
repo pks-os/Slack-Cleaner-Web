@@ -13,7 +13,8 @@ module.exports = (app) => {
           'users:read channels:read files:read files:write:user groups:read',
       },
     });
-    console.warn(urlPath);
+    console.warn("urlPath: " +  urlPath);
+    console.warn("_________________________");
     res.redirect(urlPath);
   });
 
@@ -27,11 +28,13 @@ module.exports = (app) => {
         },
       })
       .then((response) => {
-        debugger;
-        console.warn(response);
+        console.warn("response: " +  response.data.ok);
+        console.warn("_________________________");
         if (response.data.ok) {
-          console.warn(req.session);
           req.session.slack = response.data;
+          console.warn("session: " + req.session.slack);
+          console.warn("_________________________");
+
           req.session.save((err) => {
             if (!err) {
               return res.redirect('/');
@@ -50,6 +53,8 @@ module.exports = (app) => {
   });
 
   app.get('/api/profile', (req, res) => {
+
+    console.warn('session' + JSON.stringify(req.session.slack, null, 4));
     if (!req.session.slack) {
       return res.redirect('/');
     }
