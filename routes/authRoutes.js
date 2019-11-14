@@ -46,6 +46,7 @@ module.exports = (app) => {
   });
 
   app.get('/api/profile', (req, res) => {
+
     if (!req.session.slack) {
       return res.redirect('/');
     }
