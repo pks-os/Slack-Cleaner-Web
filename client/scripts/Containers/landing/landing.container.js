@@ -3,6 +3,10 @@ import slackCleanerLogo from '../../../images/slackCleaner.png';
 import '../../../styles/partials/landing.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import trash from '../../../images/trash.svg';
+import search from '../../../images/search.svg';
+import bulk from '../../../images/bulk.svg';
+
 import { faFacebookF, faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import PropTypes from 'prop-types';
 
@@ -78,41 +82,37 @@ class LandingContainer extends Component {
                     <div className="feature text-center is-revealing">
                       <div className="feature-inner">
                         <div className="feature-icon" styles="background:#FFD2DA;">
-                          <img height="48px" width="48px" src={slackCleanerLogo} alt={'Slack Cleaner Logo'}/>
+                          <img height="88px" width="88px" src={trash} alt={'Slack Cleaner Logo'}/>
                         </div>
-                        <h4 className="feature-title h3-mobile mb-8">Powerful</h4>
-                        <p className="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of
-                          English to emphasise design elements.</p>
+                        <h4 className="feature-title h3-mobile mb-8">Clean</h4>
+                        <p className="text-sm">A simple cleaner for your files.</p>
                       </div>
                     </div>
                     <div className="feature text-center is-revealing">
                       <div className="feature-inner">
                         <div className="feature-icon" styles="background:#FFD8CD;">
-                          <img height="48px" width="48px" src={slackCleanerLogo} alt={'Slack Cleaner Logo'}/>
+                          <img height="88px" width="88px" src={search} alt={'Slack Cleaner Logo'}/>
                         </div>
                         <h4 className="feature-title h3-mobile mb-8">Powerful</h4>
-                        <p className="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of
-                          English to emphasise design elements.</p>
+                        <p className="text-sm">A powerful search with lot of filters adopted to your needs.</p>
                       </div>
                     </div>
                     <div className="feature text-center is-revealing">
                       <div className="feature-inner">
                         <div className="feature-icon" styles="background:#C6FDF3;">
-                          <img height="48px" width="48px" src={slackCleanerLogo} alt={'Slack Cleaner Logo'}/>
+                          <img height="48px" width="48px" src={bulk} alt={'Slack Cleaner Logo'}/>
                         </div>
-                        <h4 className="feature-title h3-mobile mb-8">Powerful</h4>
-                        <p className="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of
-                          English to emphasise design elements.</p>
+                        <h4 className="feature-title h3-mobile mb-8">Bulk</h4>
+                        <p className="text-sm">A bulk delete that you trigger and let app do its magic.</p>
                       </div>
                     </div>
                     <div className="feature text-center is-revealing">
                       <div className="feature-inner">
                         <div className="feature-icon" styles="background:#E0E1FE;">
-                          <img height="48px" width="48px" src={slackCleanerLogo} alt={'Slack Cleaner Logo'}/>
+                          <img height="48px" width="48px" src={trash} alt={'Slack Cleaner Logo'}/>
                         </div>
-                        <h4 className="feature-title h3-mobile mb-8">Powerful</h4>
-                        <p className="text-sm">A pseudo-Latin text used in web design, layout, and printing in place of
-                          English to emphasise design elements.</p>
+                        <h4 className="feature-title h3-mobile mb-8">Stats</h4>
+                        <p className="text-sm">Statistics for how much files, what is deleted, memory, etc...</p>
                       </div>
                     </div>
                   </div>
@@ -120,7 +120,7 @@ class LandingContainer extends Component {
               </div>
             </section>
 
-            <section className="testimonials section">
+            {/*<section className="testimonials section">
               <div className="container">
                 <div className="testimonials-inner section-inner">
                   <h2 className="section-title mt-0 text-center">Testimonials</h2>
@@ -182,7 +182,7 @@ class LandingContainer extends Component {
                   </div>
                 </div>
               </div>
-            </section>
+            </section>*/}
 
             <section className="newsletter section text-light">
               <div className="container-sm">
