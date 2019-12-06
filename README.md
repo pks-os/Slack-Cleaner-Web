@@ -34,5 +34,5 @@ You can turn off the use of cookies at anytime by changing your specific browser
 If you have any questions feel free to contact me directly here: ngquad@yandex.com.
 
 ## License
-This project is licensed under the GPL - 3.0  License - see the  [LICENSE.md]( https://github.com/ngQuad/Slack-Cleaner-Web/blob/master/LICENSE ) file for details
+This project is licensed under the GPL - 3.0  License - see the  [LICENSE.md]( https://github.com/ngQuad/Slack-Cleaner-Web/blob/master/LICENCE.md ) file for details
 
