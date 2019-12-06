@@ -1405,12 +1405,12 @@
     height: 88px;
     border-radius: 50%;
 
-    &::before {
+    img {
       content: '';
       display: block;
       background: #fff;
-      width: 64px;
-      height: 64px;
+      width: 110px;
+      height: 110 px;
       position: absolute;
       top: 12px;
       left: 12px;
