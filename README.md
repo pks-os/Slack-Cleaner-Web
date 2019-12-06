@@ -1,10 +1,10 @@
 # Slack Cleaner   
 
-![alt text](https://github.com/ngQuad/Slack-Cleaner-Web/blob/develop/client/images/slackCleaner.png)
+![alt text](https://github.com/ngQuad/Slack-Cleaner-Web/blob/master/client/images/slackCleaner.png)
                   
 #Example:
                     
-![alt text](https://github.com/ngQuad/Slack-Cleaner-Web/blob/develop/client/images/slackCleanerApp.png)
+![alt text](https://github.com/ngQuad/Slack-Cleaner-Web/blob/master/client/images/slackCleanerApp.png)
 
 
 ## Getting Started                                      
@@ -34,5 +34,5 @@ You can turn off the use of cookies at anytime by changing your specific browser
 If you have any questions feel free to contact me directly here: ngquad@yandex.com.
 
 ## License
-This project is licensed under the GPL - 3.0  License - see the  [LICENSE.md]( https://github.com/ngQuad/Slack-Cleaner-Web/blob/develop/LICENSE ) file for details
+This project is licensed under the GPL - 3.0  License - see the  [LICENSE.md]( https://github.com/ngQuad/Slack-Cleaner-Web/blob/master/LICENSE ) file for details
 
