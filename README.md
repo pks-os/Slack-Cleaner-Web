@@ -1,30 +1,21 @@
-# Slack Cleaner : your best friend   
+# Slack Cleaner   
 
 ![alt text](https://github.com/ngQuad/Slack-Cleaner-Web/blob/develop/client/images/slackCleaner.png)
                   
- Example:
+#Example:
                     
 ![alt text](https://github.com/ngQuad/Slack-Cleaner-Web/blob/develop/client/images/slackCleanerApp.png)
 
 
 ## Getting Started                                      
 * Goal of this project is to make easier cleaning your Slack workspace.
-Only option provided by slack is their api, but users prefer GUI, right there Slack Cleaner comes in. 
+* Only option provided by slack is their api, but users prefer GUI, right there Slack Cleaner comes in. 
 
 ## Prerequisites
 * [React]( https://reactjs.org/ )
 * [Material UI](https://material-ui.com/)
 * [Node](https://nodejs.org/en/)
 * [Nodemon](https://nodemon.io/)
-
-## Installing
- You can use any software for making instaler such as :
- 
-1. [NSIS](http://nsis.sourceforge.net/Download)
-1. [WIX](http://wixtoolset.org/releases/)
-1. [Advanced Instaler](http://www.advancedinstaller.com/)
-
-Setup files and installation instructions -  [Download](https://github.com/miki995/School-Diary/blob/master/Installation%20files.zip). 
 
 ## Features
 
