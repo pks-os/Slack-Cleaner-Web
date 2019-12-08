@@ -23,6 +23,7 @@ import { formatBytes, sortFiles } from '../../utils';
 // end of material UI //
 
 import '../../../styles/main.scss';
+import ReactGA from 'react-ga';
 
 const drawerWidthOpen = open ? 345 : 0;
 const drawerWidth = (window.innerWidth < 800) ? window.innerWidth : drawerWidthOpen;
@@ -388,6 +389,12 @@ class PersistentDrawerLeft extends React.Component {
           }
         }, interval);
       });
+    });
+
+    /*G analytics*/
+    ReactGA.event({
+      category: 'bulk_delete',
+      action: `files length: ${this.state.files.length}`
     });
   };
 
