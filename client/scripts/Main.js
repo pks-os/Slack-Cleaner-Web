@@ -11,6 +11,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import LandingContainer from './Containers/landing/landing.container';
 import HashLoader from 'react-spinners/HashLoader';
 import { css } from '@emotion/core';
+import ReactGA from 'react-ga';
 
 import '../styles/main.scss';
 
@@ -58,6 +59,9 @@ export default class Main extends Component {
 
 
   componentDidMount = async () => {
+    this.initializeReactGA();
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
     await this.getUserAuth();
     await this.getChannels(this.state.token);
     await this.getPrivateGroups(this.state.token);
@@ -223,6 +227,10 @@ export default class Main extends Component {
     this.setState({
       modalOpen: false,
     });
+  };
+
+  initializeReactGA = () => {
+    ReactGA.initialize('UA-154138019-1');
   };
 
   renderLandingPage = () => {

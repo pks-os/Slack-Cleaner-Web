@@ -9,6 +9,8 @@ import CheckboxComponent from '../Components/checkbox/checkbox.component';
 
 import { TYPES_DICT, INIT_TYPES_STATE } from '../../../config/constants';
 
+import ReactGA from 'react-ga';
+
 class Form extends Component {
   static propTypes = {
     onGetFiles: PropTypes.func,
@@ -45,6 +47,12 @@ class Form extends Component {
 
   updateDate = ({ startDate, endDate }) => {
     this.props.onDateChange({ startDate, endDate });
+
+    /*G analytics*/
+    ReactGA.event({
+      category: 'date_updated',
+      action: `startDate: ${startDate}, endDate: ${endDate}`
+    });
   };
 
   updateType = (e) => {
@@ -62,6 +70,12 @@ class Form extends Component {
     this.setState({
       types: { ...this.state.types, all: false, [selected]: !value },
     });
+
+    /*G analytics*/
+    ReactGA.event({
+      category: 'type_updated',
+      action: `types: ${this.state.types}`
+    });
   };
 
   handleChannelSelect = (value) => {
@@ -69,14 +83,32 @@ class Form extends Component {
     this.setState({
       channel: value,
     });
+
+    /*G analytics*/
+    ReactGA.event({
+      category: 'channel_updated',
+      action: `channel: ${value}`
+    });
   };
 
   handleSortByDateSelect = (value) => {
     this.props.onSortByDateValueChange(value);
+
+    /*G analytics*/
+    ReactGA.event({
+      category: 'sort_by_date_updated',
+      action: `date: ${value}`
+    });
   };
 
   handleSortBySizeSelect = (value) => {
     this.props.onSortBySizeValueChange(value);
+
+    /*G analytics*/
+    ReactGA.event({
+      category: 'sort_by_size_updated',
+      action: `date: ${value}`
+    });
   };
 
   renderChannelSelect = () => {
